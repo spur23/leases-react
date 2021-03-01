@@ -1,24 +1,55 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import {
+  Leases,
+  Lease,
+  Payment,
+  LeaseClassification,
+  PaymentFrequency
+} from '../../leases/src';
 
 function App() {
+  const [lease, setLease] = useState({
+    name: '',
+    description: '',
+    interestRate: 0
+  });
+
+  const onChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const { id, value } = event.currentTarget;
+
+    setLease({ ...lease, [id]: value });
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Create a Lease</h1>
+      <form>
+        <label>Name: </label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          value={lease.name}
+          onChange={onChange}
+        />
+        <label>Description:</label>
+        <input
+          name="description"
+          id="description"
+          value={lease.description}
+          onChange={onChange}
+        />
+        <label>Interest Rate</label>
+        <input
+          type="number"
+          name="interestRate"
+          id="interestRate"
+          value={lease.interestRate}
+          onChange={onChange}
+        />
+        <div>
+          <button>Add Payment</button>
+        </div>
+      </form>
     </div>
   );
 }
