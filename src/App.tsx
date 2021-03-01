@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Payments from './components/Payments';
 import {
   Leases,
   Lease,
@@ -47,8 +48,9 @@ function App() {
           onChange={onChange}
         />
         <div>
-          <button>Add Payment</button>
+          <Payments />
         </div>
+        <button type="submit">Create Lease</button>
       </form>
     </div>
   );
