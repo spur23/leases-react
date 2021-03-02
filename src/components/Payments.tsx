@@ -32,6 +32,17 @@ const Payments = () => {
     e: React.FormEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
   ) => {
     const { name, id, value } = e.currentTarget;
+
+    let updatedValue: string | number;
+
+    if (name === 'startDate') {
+      updatedValue = getFirstDay(value);
+    } else if (name === 'endDate') {
+      updatedValue = getLastDay(value);
+    } else {
+      updatedValue = value;
+    }
+
     const indexValue = id.split(' ')[1];
     const oldPayment: {
       startDate: string;
@@ -42,7 +53,7 @@ const Payments = () => {
 
     const updatedPayment = {
       ...oldPayment,
-      [name]: value
+      [name]: updatedValue
     };
 
     const oldArray = [...payments];
@@ -50,6 +61,52 @@ const Payments = () => {
     oldArray[indexValue] = updatedPayment;
 
     setPayments(oldArray);
+  };
+
+  /**
+   * takes a date as string returns the first day of the month
+   * @param value
+   */
+  const getFirstDay = (value: string): string => {
+    const newDate = new Date(value);
+
+    const month = monthCorrection(newDate.getMonth());
+
+    const day = '01';
+    const year = newDate.getFullYear();
+
+    const updatedDate = `${year}-${month}-${day}`;
+
+    return updatedDate;
+  };
+
+  /**
+   * takes a date as string returns last day of the month
+   * @param value
+   */
+  const getLastDay = (value: string): string => {
+    const date = new Date(value);
+
+    const newDate = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+
+    newDate.setDate(newDate.getDate() - 1);
+
+    const month = monthCorrection(newDate.getMonth());
+
+    return `${newDate.getFullYear()}-${month}-${newDate.getDate()}`;
+  };
+
+  /**
+   * corrects the month to two digits
+   * @param month
+   */
+  const monthCorrection = (month: number | string): string => {
+    const monthNumber = Number(month);
+
+    const correctedMonth =
+      monthNumber + 1 < 10 ? `0${monthNumber + 1}` : monthNumber + 1;
+
+    return correctedMonth.toString();
   };
 
   return (
