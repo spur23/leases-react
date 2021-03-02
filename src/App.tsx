@@ -6,7 +6,7 @@ import {
   Payment,
   LeaseClassification,
   PaymentFrequency
-} from '../../leases/src';
+} from '../../leases/src/index';
 
 function App() {
   const [lease, setLease] = useState({
