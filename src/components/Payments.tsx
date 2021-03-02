@@ -33,7 +33,12 @@ const Payments = () => {
   ) => {
     const { name, id, value } = e.currentTarget;
     const indexValue = id.split(' ')[1];
-    const oldPayment = payments[indexValue];
+    const oldPayment: {
+      startDate: string;
+      endDate: string;
+      frequency: string;
+      amount: number;
+    } = payments[indexValue];
 
     const updatedPayment = {
       ...oldPayment,
