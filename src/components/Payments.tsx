@@ -1,37 +1,16 @@
 import { useState } from 'react';
+import { checkDateIsAfter, getFirstDay, getLastDay } from '../utils';
 
-const Payments = () => {
-  const [payments, setPayments] = useState([
-    { startDate: '', endDate: '', frequency: '', amount: 0 }
-  ]);
-
-  const onClickAdd = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    const arr = [...payments];
-
-    arr.push({ startDate: '', endDate: '', frequency: '', amount: 0 });
-
-    setPayments(arr);
-  };
-
-  const onClickDelete = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.preventDefault();
-
-    if (payments.length === 1) return;
-
-    const arr = [...payments];
-
-    arr.pop();
-
-    setPayments(arr);
-  };
+const Payments = ({ onChange, onClickAdd, onClickDelete, paymentsArr }) => {
+  const [error, setError] = useState('');
 
   const handleChange = (
     e: React.FormEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
   ) => {
     const { name, id, value } = e.currentTarget;
+    const indexValue = id.split(' ')[1];
+
+    setError('');
 
     let updatedValue: string | number;
 
@@ -39,74 +18,33 @@ const Payments = () => {
       updatedValue = getFirstDay(value);
     } else if (name === 'endDate') {
       updatedValue = getLastDay(value);
+
+      if (!checkDateIsAfter(paymentsArr[indexValue].startDate, updatedValue)) {
+        setError('End date must be after start date');
+        updatedValue = '';
+        return;
+      }
     } else {
       updatedValue = value;
     }
 
-    const indexValue = id.split(' ')[1];
     const oldPayment: {
       startDate: string;
       endDate: string;
       frequency: string;
       amount: number;
-    } = payments[indexValue];
+    } = paymentsArr[indexValue];
 
     const updatedPayment = {
       ...oldPayment,
       [name]: updatedValue
     };
 
-    const oldArray = [...payments];
+    const oldArray = [...paymentsArr];
 
     oldArray[indexValue] = updatedPayment;
 
-    setPayments(oldArray);
-  };
-
-  /**
-   * takes a date as string returns the first day of the month
-   * @param value
-   */
-  const getFirstDay = (value: string): string => {
-    const newDate = new Date(value);
-
-    const month = monthCorrection(newDate.getMonth());
-
-    const day = '01';
-    const year = newDate.getFullYear();
-
-    const updatedDate = `${year}-${month}-${day}`;
-
-    return updatedDate;
-  };
-
-  /**
-   * takes a date as string returns last day of the month
-   * @param value
-   */
-  const getLastDay = (value: string): string => {
-    const date = new Date(value);
-
-    const newDate = new Date(date.getFullYear(), date.getMonth() + 1, 1);
-
-    newDate.setDate(newDate.getDate() - 1);
-
-    const month = monthCorrection(newDate.getMonth());
-
-    return `${newDate.getFullYear()}-${month}-${newDate.getDate()}`;
-  };
-
-  /**
-   * corrects the month to two digits
-   * @param month
-   */
-  const monthCorrection = (month: number | string): string => {
-    const monthNumber = Number(month);
-
-    const correctedMonth =
-      monthNumber + 1 < 10 ? `0${monthNumber + 1}` : monthNumber + 1;
-
-    return correctedMonth.toString();
+    onChange(oldArray);
   };
 
   return (
@@ -115,6 +53,8 @@ const Payments = () => {
         <button onClick={onClickAdd}>Add Payment</button>
         <button onClick={onClickDelete}>Delete Payment</button>
       </div>
+      {/* TODO create error component */}
+      {error !== '' ? <p>{error}</p> : null}
       <table>
         <thead>
           <tr>
@@ -125,7 +65,7 @@ const Payments = () => {
           </tr>
         </thead>
         <tbody>
-          {payments.map((payment, index) => (
+          {paymentsArr.map((payment, index) => (
             <tr>
               <td>
                 <input
