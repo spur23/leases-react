@@ -49,6 +49,10 @@ const Payments = () => {
 
   return (
     <div>
+      <div>
+        <button onClick={onClickAdd}>Add Payment</button>
+        <button onClick={onClickDelete}>Delete Payment</button>
+      </div>
       <table>
         <thead>
           <tr>
@@ -56,12 +60,6 @@ const Payments = () => {
             <th>End Date</th>
             <th>Frequency</th>
             <th>Amount</th>
-            <th>
-              <button onClick={onClickAdd}>Add Payment</button>
-            </th>
-            <th>
-              <button onClick={onClickDelete}>Delete Payment</button>
-            </th>
           </tr>
         </thead>
         <tbody>
