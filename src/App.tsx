@@ -144,7 +144,7 @@ const App = () => {
     e.preventDefault();
     const arr = [...payments];
 
-    arr.push({ startDate: '', endDate: '', frequency: '', amount: 0 });
+    arr.push({ startDate: '', endDate: '', frequency: 'monthly', amount: 0 });
 
     setPayments(arr);
   };
