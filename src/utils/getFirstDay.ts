@@ -5,7 +5,12 @@ import { monthCorrection } from '.';
  * @param value
  */
 export const getFirstDay = (value: string): string => {
-  const newDate = new Date(value);
+  const dateArr = value.split('-');
+  const newDate = new Date(
+    Number(dateArr[0]),
+    Number(dateArr[1]) - 1,
+    Number(dateArr[2])
+  );
 
   const month = monthCorrection(newDate.getMonth());
 
