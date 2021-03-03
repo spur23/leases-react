@@ -68,7 +68,7 @@ const Payments = ({ onChange, onClickAdd, onClickDelete, paymentsArr }) => {
         </thead>
         <tbody>
           {paymentsArr.map((payment, index) => (
-            <tr>
+            <tr key={index}>
               <td>
                 <input
                   type="date"
