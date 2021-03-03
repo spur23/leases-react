@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Payments from './components/Payments';
 import {
   Lease,
@@ -11,22 +11,118 @@ import Download from './components/Download';
 // import Papa from 'papaparse';
 // import FileSaver from 'file-saver';
 
+interface GeneratedLease {
+  lease: string;
+  description: string;
+  classification: string;
+  interestRate: number;
+  totalPayments: number;
+  quantityOfPayments: number;
+  presentValue: number;
+  prepaid: boolean;
+  startDate: string;
+  endDate: string;
+  payments: LeasePayments[];
+  asset: any[];
+  liability: any[];
+}
+
 const App = () => {
   const [lease, setLease] = useState({
     name: '',
     description: '',
-    classification: '',
+    classification: 'operating',
+    prepaid: 'true',
     interestRate: 0
   });
 
-  const [generatedLease, setGeneratedLease] = useState({});
+  const [generatedLease, setGeneratedLease] = useState<GeneratedLease>({
+    lease: '',
+    description: '',
+    classification: '',
+    interestRate: 0,
+    totalPayments: 0,
+    quantityOfPayments: 0,
+    presentValue: 0,
+    prepaid: true,
+    startDate: '',
+    endDate: '',
+    payments: [],
+    asset: [],
+    liability: []
+  });
   const [leaseInfo, setLeaseInfo] = useState([]);
-  const [asset, setAsset] = useState([]);
-  const [liabiliyt, setLiability] = useState([]);
 
   const [payments, setPayments] = useState([
-    { startDate: '', endDate: '', frequency: '', amount: 0 }
+    { startDate: '', endDate: '', frequency: 'monthly', amount: 0 }
   ]);
+
+  useEffect(() => {
+    const assetSchedule = generatedLease.asset.map((month) => [
+      month.date,
+      month.beginningBalance,
+      month.depreciation,
+      month.endingBalance
+    ]);
+
+    const liabilitySchedule = generatedLease.liability.map((month) => [
+      month.date,
+      month.beginningBalance,
+      month.payment,
+      month.interestExpense,
+      month.interestPayment,
+      month.principal,
+      month.endingBalance
+    ]);
+    setLeaseInfo([
+      {
+        columns: [''],
+        data: [
+          ['Name: ', generatedLease.lease],
+          ['Description: ', generatedLease.description],
+          ['Classificatoin: ', generatedLease.classification],
+          ['Prepaid', generatedLease.prepaid],
+          ['Discount Rate: ', generatedLease.interestRate * 100],
+          ['Total Payments: ', generatedLease.totalPayments],
+          ['Present Value: ', generatedLease.presentValue],
+          ['Start Date: ', generatedLease.startDate],
+          ['End Date: ', generatedLease.endDate]
+        ]
+      },
+      { ySteps: 5, columns: ['Asset Schedule'], data: [['']] },
+      {
+        // xSteps: 1, // Will start putting cell with 1 empty cell on left most
+        ySteps: -1, //will put space of 5 rows,
+        columns: [
+          'Date',
+          'Beginning Balance',
+          'Depreciation',
+          'Ending Balance'
+        ],
+        data: assetSchedule
+      },
+      {
+        ySteps: -assetSchedule.length - 2,
+        xSteps: 6,
+        columns: ['Liability Schedule'],
+        data: [['']]
+      },
+      {
+        ySteps: -1,
+        xSteps: 6,
+        columns: [
+          'Date',
+          'Beginning Balance',
+          'Payment',
+          'Interest Expense',
+          'Interest Payment',
+          'Principal',
+          'Ending Balance'
+        ],
+        data: liabilitySchedule
+      }
+    ]);
+  }, [generatedLease]);
 
   const onChange = (
     event:
@@ -107,27 +203,18 @@ const App = () => {
         ? LeaseClassification.OPERATING
         : LeaseClassification.FINANCE;
 
+    const prepaid = lease.prepaid === 'true' ? true : false;
+
     leaseSet.setProperties(
       name,
       description,
       leaseClassification,
       interestRate,
       leasePayments,
-      false
+      prepaid
     );
 
     setGeneratedLease(leaseSet.getAllLeaseInformation());
-
-    // setLeaseInfo([
-    //   {
-    //     data: [
-    //       generatedLease.lease,
-    //       generatedLease.description,
-    //       generatedLease.classifcation,
-    //       generatedLease.interestRate
-    //     ]
-    //   }
-    // ]);
   };
 
   return (
@@ -160,6 +247,16 @@ const App = () => {
           <option value="operating">Operating</option>
           <option value="finance">Finance</option>
         </select>
+        <label>Prepaid: </label>
+        <select
+          name="prepaid"
+          id="prepaid"
+          value={lease.prepaid}
+          onChange={onChange}
+        >
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
         <label>Interest Rate</label>
         <input
           type="number"
@@ -178,7 +275,7 @@ const App = () => {
         </div>
         <button type="submit">Create Lease</button>
       </form>
-      {Object.keys(generatedLease).length !== 0 ? <Download /> : null}
+      {generatedLease.lease !== '' ? <Download lease={leaseInfo} /> : null}
     </div>
   );
 };
