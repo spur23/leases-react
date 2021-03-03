@@ -24,6 +24,8 @@ const Payments = ({ onChange, onClickAdd, onClickDelete, paymentsArr }) => {
         updatedValue = '';
         return;
       }
+    } else if (name === 'amount') {
+      updatedValue = Number(value);
     } else {
       updatedValue = value;
     }
