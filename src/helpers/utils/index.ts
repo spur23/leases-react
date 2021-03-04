@@ -4,6 +4,7 @@ import { monthCorrection } from './monthCorrection';
 import { checkDateIsAfter } from './checkDateIsAfter';
 import { formatDate } from './formatDate';
 import { createLease } from './createLease';
+import { createExcelData } from './createExcelData';
 
 export {
   getFirstDay,
@@ -11,5 +12,6 @@ export {
   monthCorrection,
   checkDateIsAfter,
   formatDate,
-  createLease
+  createLease,
+  createExcelData
 };
