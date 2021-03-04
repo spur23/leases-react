@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Payments from './components/Payments';
 import { Payments as LeasePayments } from './helpers/leases/index';
 import Download from './components/Download';
-import { createLease } from './helpers/utils';
+import { createExcelData, createLease } from './helpers/utils';
 
 interface GeneratedLease {
   lease: string;
@@ -51,70 +51,9 @@ const App = () => {
   ]);
 
   useEffect(() => {
-    const assetSchedule = generatedLease.asset.map((month) => [
-      month.date,
-      month.beginningBalance,
-      month.depreciation,
-      month.endingBalance
-    ]);
+    const leaseExcelData = createExcelData(generatedLease);
 
-    const liabilitySchedule = generatedLease.liability.map((month) => [
-      month.date,
-      month.beginningBalance,
-      month.payment,
-      month.interestExpense,
-      month.interestPayment,
-      month.principal,
-      month.endingBalance
-    ]);
-    setLeaseInfo([
-      {
-        columns: [''],
-        data: [
-          ['Name: ', generatedLease.lease],
-          ['Description: ', generatedLease.description],
-          ['Classificatoin: ', generatedLease.classification],
-          ['Prepaid', generatedLease.prepaid],
-          ['Discount Rate: ', generatedLease.interestRate * 100],
-          ['Total Payments: ', generatedLease.totalPayments],
-          ['Present Value: ', generatedLease.presentValue],
-          ['Start Date: ', generatedLease.startDate],
-          ['End Date: ', generatedLease.endDate]
-        ]
-      },
-      { ySteps: 5, columns: ['Asset Schedule'], data: [['']] },
-      {
-        // xSteps: 1, // Will start putting cell with 1 empty cell on left most
-        ySteps: -1, //will put space of 5 rows,
-        columns: [
-          'Date',
-          'Beginning Balance',
-          'Depreciation',
-          'Ending Balance'
-        ],
-        data: assetSchedule
-      },
-      {
-        ySteps: -assetSchedule.length - 2,
-        xSteps: 6,
-        columns: ['Liability Schedule'],
-        data: [['']]
-      },
-      {
-        ySteps: -1,
-        xSteps: 6,
-        columns: [
-          'Date',
-          'Beginning Balance',
-          'Payment',
-          'Interest Expense',
-          'Interest Payment',
-          'Principal',
-          'Ending Balance'
-        ],
-        data: liabilitySchedule
-      }
-    ]);
+    setLeaseInfo(leaseExcelData);
   }, [generatedLease]);
 
   const onChange = (
