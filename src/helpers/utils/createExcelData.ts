@@ -1,4 +1,6 @@
-export const createExcelData = (lease) => {
+import { GeneratedLease } from '../../interfaces';
+
+export const createExcelData = (lease: GeneratedLease): any[] => {
   const obj = { ...lease };
 
   const assetSchedule = obj.asset.map((month) => [
