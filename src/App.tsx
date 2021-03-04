@@ -1,15 +1,8 @@
 import { useState, useEffect } from 'react';
 import Payments from './components/Payments';
-import {
-  Lease,
-  Payment,
-  Payments as LeasePayments,
-  LeaseClassification,
-  PaymentFrequency
-} from './leases/index';
+import { Payments as LeasePayments } from './helpers/leases/index';
 import Download from './components/Download';
-// import Papa from 'papaparse';
-// import FileSaver from 'file-saver';
+import { createLease } from './helpers/utils';
 
 interface GeneratedLease {
   lease: string;
@@ -163,58 +156,11 @@ const App = () => {
     setPayments(arr);
   };
 
-  const formatDate = (value) => {
-    const dateArr = value.split('-');
-
-    return `${dateArr[1]}/${dateArr[2]}/${dateArr[0]}`;
-  };
-
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const { name, description, interestRate } = lease;
-
-    const paymentStream = payments.map((el) => {
-      const { amount, frequency, startDate, endDate } = el;
-      const stDate = formatDate(startDate);
-      const edDate = formatDate(endDate);
-
-      return new Payment({
-        payment: amount,
-        frequency:
-          frequency === 'monthly'
-            ? PaymentFrequency.Monthly
-            : frequency === 'quarterly'
-            ? PaymentFrequency.Quarterly
-            : frequency === 'semiannual'
-            ? PaymentFrequency.SemiAnnual
-            : PaymentFrequency.Annual,
-        startDate: stDate,
-        endDate: edDate
-      });
-    });
-
-    const leasePayments = new LeasePayments(paymentStream);
-
-    const leaseSet = new Lease();
-
-    const leaseClassification =
-      lease.classification === 'operating'
-        ? LeaseClassification.OPERATING
-        : LeaseClassification.FINANCE;
-
-    const prepaid = lease.prepaid === 'true' ? true : false;
-
-    leaseSet.setProperties(
-      name,
-      description,
-      leaseClassification,
-      interestRate,
-      leasePayments,
-      prepaid
-    );
-
-    setGeneratedLease(leaseSet.getAllLeaseInformation());
+    const generatedLease = createLease(payments, lease);
+    setGeneratedLease(generatedLease.getAllLeaseInformation());
   };
 
   return (

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { checkDateIsAfter, getFirstDay, getLastDay } from '../utils';
+import { checkDateIsAfter, getFirstDay, getLastDay } from '../helpers/utils';
 
 const Payments = ({ onChange, onClickAdd, onClickDelete, paymentsArr }) => {
   const [error, setError] = useState('');
