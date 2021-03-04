@@ -1,24 +1,9 @@
 import { useState, useEffect } from 'react';
 import Payments from './components/Payments';
-import { Payments as LeasePayments } from './helpers/leases/index';
 import Download from './components/Download';
-import { createExcelData, createLease } from './helpers/utils';
 
-interface GeneratedLease {
-  lease: string;
-  description: string;
-  classification: string;
-  interestRate: number;
-  totalPayments: number;
-  quantityOfPayments: number;
-  presentValue: number;
-  prepaid: boolean;
-  startDate: string;
-  endDate: string;
-  payments: LeasePayments[];
-  asset: any[];
-  liability: any[];
-}
+import { createExcelData, createLease } from './helpers/utils';
+import { GeneratedLease } from './interfaces';
 
 const App = () => {
   const [lease, setLease] = useState({
