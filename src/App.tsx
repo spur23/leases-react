@@ -4,16 +4,17 @@ import Download from './components/Download';
 
 import { createExcelData, createLease } from './helpers/utils';
 import { GeneratedLease } from './interfaces';
+import { useForm } from './hooks/useForm';
+
+const leaseInitialValues = {
+  name: '',
+  description: '',
+  classification: 'operating',
+  prepaid: 'true',
+  interestRate: 0
+};
 
 const App = () => {
-  const [lease, setLease] = useState({
-    name: '',
-    description: '',
-    classification: 'operating',
-    prepaid: 'true',
-    interestRate: 0
-  });
-
   const [generatedLease, setGeneratedLease] = useState<GeneratedLease>({
     lease: '',
     description: '',
@@ -31,6 +32,8 @@ const App = () => {
   });
   const [leaseInfo, setLeaseInfo] = useState([]);
 
+  const [values, handleChange] = useForm(leaseInitialValues);
+
   const [payments, setPayments] = useState([
     { startDate: '', endDate: '', frequency: 'monthly', amount: 0 }
   ]);
@@ -40,16 +43,6 @@ const App = () => {
 
     setLeaseInfo(leaseExcelData);
   }, [generatedLease]);
-
-  const onChange = (
-    event:
-      | React.FormEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLSelectElement>
-  ): void => {
-    const { id, value } = event.currentTarget;
-
-    setLease({ ...lease, [id]: value });
-  };
 
   const onChangePayments = (updatedPayments: []): void => {
     setPayments(updatedPayments);
@@ -80,11 +73,12 @@ const App = () => {
     setPayments(arr);
   };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-    const generatedLease = createLease(payments, lease);
-    setGeneratedLease(generatedLease.getAllLeaseInformation());
+    const genLease = createLease(payments, values);
+
+    setGeneratedLease(genLease.getAllLeaseInformation());
   };
 
   return (
@@ -97,22 +91,22 @@ const App = () => {
           type="text"
           name="name"
           id="name"
-          value={lease.name}
-          onChange={onChange}
+          value={values.name}
+          onChange={handleChange}
         />
         <label>Description:</label>
         <input
           name="description"
           id="description"
-          value={lease.description}
-          onChange={onChange}
+          value={values.description}
+          onChange={handleChange}
         />
         <label>Classifcation: </label>
         <select
           name="classification"
           id="classification"
-          value={lease.classification}
-          onChange={onChange}
+          value={values.classification}
+          onChange={handleChange}
         >
           <option value="operating">Operating</option>
           <option value="finance">Finance</option>
@@ -121,8 +115,8 @@ const App = () => {
         <select
           name="prepaid"
           id="prepaid"
-          value={lease.prepaid}
-          onChange={onChange}
+          value={values.prepaid}
+          onChange={handleChange}
         >
           <option value="true">Yes</option>
           <option value="false">No</option>
@@ -132,8 +126,8 @@ const App = () => {
           type="number"
           name="interestRate"
           id="interestRate"
-          value={lease.interestRate}
-          onChange={onChange}
+          value={values.interestRate}
+          onChange={handleChange}
         />
         <div>
           <Payments
@@ -145,7 +139,9 @@ const App = () => {
         </div>
         <button type="submit">Create Lease</button>
       </form>
-      {generatedLease.lease !== '' ? <Download lease={leaseInfo} /> : null}
+      {generatedLease.asset.length !== 0 ? (
+        <Download lease={leaseInfo} />
+      ) : null}
     </div>
   );
 };
