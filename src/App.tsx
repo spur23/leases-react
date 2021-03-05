@@ -5,6 +5,13 @@ import Download from './components/Download';
 import { createExcelData, createLease } from './helpers/utils';
 import { GeneratedLease } from './interfaces';
 import { useForm } from './hooks/useForm';
+import Input from './components/Input';
+
+export enum InputTypes {
+  Select = 'select',
+  Text = 'text',
+  Number = 'number'
+}
 
 const leaseInitialValues = {
   name: '',
@@ -81,54 +88,64 @@ const App = () => {
     setGeneratedLease(genLease.getAllLeaseInformation());
   };
 
+  const inputObject = [
+    {
+      label: 'Name:',
+      type: InputTypes.Text,
+      name: 'name',
+      id: 'name',
+      value: values.name,
+      onChange: handleChange
+    },
+    {
+      label: 'Description:',
+      type: InputTypes.Text,
+      name: 'description',
+      id: 'description',
+      value: values.description,
+      onChange: handleChange
+    },
+    {
+      label: 'Interest Rate:',
+      type: InputTypes.Number,
+      name: 'interestRate',
+      id: 'interestRate',
+      value: values.interestRate,
+      onChange: handleChange
+    },
+    {
+      label: 'Prepaid:',
+      type: InputTypes.Select,
+      name: 'prepaid',
+      id: 'prepaid',
+      value: values.prepaid,
+      onChange: handleChange,
+      options: [
+        { text: 'Yes', value: 'true' },
+        { text: 'No', value: 'false' }
+      ]
+    },
+    {
+      label: 'Classification:',
+      type: InputTypes.Select,
+      name: 'classification',
+      id: 'classification',
+      value: values.prepaid,
+      onChange: handleChange,
+      options: [
+        { text: 'Operating', value: 'operting' },
+        { text: 'Finance', value: 'finance' }
+      ]
+    }
+  ];
+
   return (
     <div className="App">
       <h1>Create a Lease</h1>
-
       <form onSubmit={onSubmit}>
-        <label>Name: </label>
-        <input
-          type="text"
-          name="name"
-          id="name"
-          value={values.name}
-          onChange={handleChange}
-        />
-        <label>Description:</label>
-        <input
-          name="description"
-          id="description"
-          value={values.description}
-          onChange={handleChange}
-        />
-        <label>Classifcation: </label>
-        <select
-          name="classification"
-          id="classification"
-          value={values.classification}
-          onChange={handleChange}
-        >
-          <option value="operating">Operating</option>
-          <option value="finance">Finance</option>
-        </select>
-        <label>Prepaid: </label>
-        <select
-          name="prepaid"
-          id="prepaid"
-          value={values.prepaid}
-          onChange={handleChange}
-        >
-          <option value="true">Yes</option>
-          <option value="false">No</option>
-        </select>
-        <label>Interest Rate</label>
-        <input
-          type="number"
-          name="interestRate"
-          id="interestRate"
-          value={values.interestRate}
-          onChange={handleChange}
-        />
+        {inputObject.map((input) => (
+          <Input config={input} />
+        ))}
         <div>
           <Payments
             onChange={onChangePayments}
