@@ -5,6 +5,7 @@ import { checkDateIsAfter } from './checkDateIsAfter';
 import { formatDate } from './formatDate';
 import { createLease } from './createLease';
 import { createExcelData } from './createExcelData';
+import { capitalizeFirstLetter } from './capitalizeFirstLetter';
 
 export {
   getFirstDay,
@@ -13,5 +14,6 @@ export {
   checkDateIsAfter,
   formatDate,
   createLease,
-  createExcelData
+  createExcelData,
+  capitalizeFirstLetter
 };

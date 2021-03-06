@@ -6,6 +6,8 @@ interface Lease {
   classification: string;
   prepaid: string;
   interestRate: number;
+  deferredRent: number;
+  leaseIncentive: number;
 }
 
 const useForm = (
@@ -26,6 +28,7 @@ const useForm = (
       | React.ChangeEvent<HTMLSelectElement>
   ): void => {
     const { id, value } = event.currentTarget;
+
     setValues({ ...values, [id]: value });
   };
 

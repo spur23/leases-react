@@ -6,6 +6,7 @@ import { createExcelData, createLease } from './helpers/utils';
 import { GeneratedLease } from './interfaces';
 import { useForm } from './hooks/useForm';
 import Input from './components/Input';
+import DataTable from './components/table/DataTable';
 
 export enum InputTypes {
   Select = 'select',
@@ -18,7 +19,9 @@ const leaseInitialValues = {
   description: '',
   classification: 'operating',
   prepaid: 'true',
-  interestRate: 0
+  interestRate: 0,
+  deferredRent: 0,
+  leaseIncentive: 0
 };
 
 const App = () => {
@@ -106,12 +109,16 @@ const App = () => {
       onChange: handleChange
     },
     {
-      label: 'Interest Rate:',
-      type: InputTypes.Number,
-      name: 'interestRate',
-      id: 'interestRate',
-      value: values.interestRate,
-      onChange: handleChange
+      label: 'Classification:',
+      type: InputTypes.Select,
+      name: 'classification',
+      id: 'classification',
+      value: values.classification,
+      onChange: handleChange,
+      options: [
+        { text: 'Operating', value: 'operating' },
+        { text: 'Finance', value: 'finance' }
+      ]
     },
     {
       label: 'Prepaid:',
@@ -126,40 +133,72 @@ const App = () => {
       ]
     },
     {
-      label: 'Classification:',
-      type: InputTypes.Select,
-      name: 'classification',
-      id: 'classification',
-      value: values.prepaid,
-      onChange: handleChange,
-      options: [
-        { text: 'Operating', value: 'operting' },
-        { text: 'Finance', value: 'finance' }
-      ]
+      label: 'Interest Rate:',
+      type: InputTypes.Number,
+      name: 'interestRate',
+      id: 'interestRate',
+      value: values.interestRate,
+      onChange: handleChange
+    },
+    {
+      label: 'Deferred Rent:',
+      type: InputTypes.Number,
+      name: 'deferredRent',
+      id: 'deferredRent',
+      value: values.deferredRent,
+      onChange: handleChange
+    },
+    {
+      label: 'Lease Incentive:',
+      type: InputTypes.Number,
+      name: 'leaseIncentive',
+      id: 'leaseIncentive',
+      value: values.deferredRent,
+      onChange: handleChange
     }
   ];
 
   return (
-    <div className="App">
-      <h1>Create a Lease</h1>
-      <form onSubmit={onSubmit}>
-        {inputObject.map((input) => (
-          <Input config={input} />
-        ))}
+    <>
+      <div className="App">
+        <h1>Create a Lease</h1>
+        <form onSubmit={onSubmit}>
+          {inputObject.map((input) => (
+            <Input config={input} />
+          ))}
+          <div>
+            <Payments
+              onChange={onChangePayments}
+              onClickAdd={onClickAdd}
+              onClickDelete={onClickDelete}
+              paymentsArr={payments}
+            />
+          </div>
+          <button type="submit">Create Lease</button>
+        </form>
+        {generatedLease.asset.length !== 0 ? (
+          <Download lease={leaseInfo} />
+        ) : null}
+      </div>
+      <div>
         <div>
-          <Payments
-            onChange={onChangePayments}
-            onClickAdd={onClickAdd}
-            onClickDelete={onClickDelete}
-            paymentsArr={payments}
-          />
+          {generatedLease.asset.length !== 0 ? (
+            <>
+              <h3>Asset Schedule</h3>
+              <DataTable data={generatedLease.asset} />
+            </>
+          ) : null}
         </div>
-        <button type="submit">Create Lease</button>
-      </form>
-      {generatedLease.asset.length !== 0 ? (
-        <Download lease={leaseInfo} />
-      ) : null}
-    </div>
+        <div>
+          {generatedLease.liability.length !== 0 ? (
+            <>
+              <h3>Liabilty Schedule</h3>
+              <DataTable data={generatedLease.liability} />
+            </>
+          ) : null}
+        </div>
+      </div>
+    </>
   );
 };
 
