@@ -153,7 +153,7 @@ const App = () => {
       type: InputTypes.Number,
       name: 'leaseIncentive',
       id: 'leaseIncentive',
-      value: values.deferredRent,
+      value: values.leaseIncentive,
       onChange: handleChange
     }
   ];
