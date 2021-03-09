@@ -3,7 +3,10 @@ import { LeaseClassification } from '../enums';
 import { AssetCalculationObject } from '../interfaces';
 import { addMonth } from './addMonth';
 
-const calculateAssetSchedule = (data: AssetCalculationObject) => {
+const calculateAssetSchedule = (
+  data: AssetCalculationObject,
+  straightLineRent?
+) => {
   const {
     startDate,
     life,
@@ -13,8 +16,6 @@ const calculateAssetSchedule = (data: AssetCalculationObject) => {
     totalPayments,
     classification
   } = data;
-
-  const straightLineRent = totalPayments / life;
 
   let result = [];
 

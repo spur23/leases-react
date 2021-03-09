@@ -37,13 +37,20 @@ export interface LeaseValues {
   presentValue: number;
   startDate: string;
   endDate: string;
+  deferredRent: number;
+  leaseIncentive: number;
+  initialDirectCosts: number;
+  useEconomicLife: boolean;
+  economicLife: number;
   setProperties: (
     name: string,
     description: string,
     classification: LeaseClassification,
     interestRate: number,
     payments: Payments,
-    prepaid: boolean
+    prepaid: boolean,
+    deferredRent: number,
+    leaseIncetive: number
   ) => void;
   setPropertiesFromJSON: (data: JSONData) => void;
 }

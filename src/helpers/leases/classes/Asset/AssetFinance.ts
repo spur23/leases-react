@@ -7,11 +7,27 @@ export class AssetFinance extends AssetBase {
   setPropertiesFinance(
     startDate: string,
     startingBalance: number,
-    life: number
+    life: number,
+    useEconomicLife: boolean,
+    economicLife?: number
   ): void {
-    this.setProperties(startDate, startingBalance, life);
-    this.calculateDepreciation();
+    if (useEconomicLife) {
+      // economic life is corrected to months
+      const calculatedLife = economicLife * 12;
+      this.setProperties(startDate, startingBalance, calculatedLife);
+      this.calculateDepreciationWithEconomicLife(calculatedLife);
+    } else {
+      this.setProperties(startDate, startingBalance, life);
+      this.calculateDepreciation();
+    }
+
     this.setMonthlyTransactions(this.calculateMonthlySchedule);
+  }
+
+  calculateDepreciationWithEconomicLife(economicLife): void {
+    const depreciation = this.getStartingBalance() / economicLife;
+
+    this.setMonthlyDepreciation(depreciation);
   }
 
   calculateDepreciation(): void {

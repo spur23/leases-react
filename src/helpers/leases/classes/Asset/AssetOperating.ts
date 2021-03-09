@@ -9,23 +9,42 @@ export class AssetOperating extends AssetBase {
   setPropertiesOperating(
     startDate: string,
     startingBalance: number,
+    deferredRent: number,
+    leaseIncentive: number,
+    initialDirectCosts: number,
     life: number,
     liabilitySchedule: LiabilitySchedule[]
   ): void {
-    this.setProperties(startDate, startingBalance, life);
+    // beginning balance is equal to PV less deferred rent less lease incentives plus initial direct costs
+    const beginningBalance =
+      startingBalance - deferredRent - leaseIncentive + initialDirectCosts;
+
+    this.setProperties(startDate, beginningBalance, life);
     this.setMonthlyTransactions(
-      this.calculateMonthlySchedule(liabilitySchedule)
+      this.calculateMonthlySchedule(
+        liabilitySchedule,
+        leaseIncentive,
+        deferredRent,
+        initialDirectCosts
+      )
     );
   }
 
-  calculateMonthlySchedule(liabilitySchedule: LiabilitySchedule[]) {
+  calculateMonthlySchedule(
+    liabilitySchedule: LiabilitySchedule[],
+    leaseIncentive: number,
+    deferredRent: number,
+    initialDirectCosts: number
+  ) {
     const totalPayments = liabilitySchedule.reduce(
       (accumulator, currentValue) => accumulator + currentValue.payment,
       0
     );
 
-    return (startDate, life, startingBalance) => {
-      this.straightLineRent = totalPayments / life;
+    return (startDate: Date, life: number, startingBalance: number) => {
+      this.straightLineRent =
+        (totalPayments - leaseIncentive - deferredRent + initialDirectCosts) /
+        life;
 
       const assetData = {
         startDate,
@@ -36,7 +55,10 @@ export class AssetOperating extends AssetBase {
         classification: LeaseClassification.OPERATING
       };
 
-      const assetSchedule = calculateAssetSchedule(assetData);
+      const assetSchedule = calculateAssetSchedule(
+        assetData,
+        this.straightLineRent
+      );
 
       return assetSchedule;
     };

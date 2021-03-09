@@ -8,6 +8,7 @@ interface Lease {
   interestRate: number;
   deferredRent: number;
   leaseIncentive: number;
+  initialDirectCosts: number;
 }
 
 const useForm = (

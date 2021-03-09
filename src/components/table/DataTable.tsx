@@ -14,9 +14,18 @@ const createTableRows = (dataArray: {}[]) => (
   <tbody>
     {dataArray.map((row, index) => (
       <tr key={`${row}-${index}`}>
-        {Object.keys(row).map((key) => (
-          <td key={key}>{row[key]}</td>
-        ))}
+        {Object.keys(row).map((key) => {
+          if (typeof row[key] === 'number') {
+            return (
+              <td key={key}>
+                {new Intl.NumberFormat('en-US', {
+                  minimumFractionDigits: 2
+                }).format(row[key])}
+              </td>
+            );
+          }
+          return <td key={key}>{row[key]}</td>;
+        })}
       </tr>
     ))}
   </tbody>

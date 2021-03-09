@@ -21,7 +21,8 @@ const leaseInitialValues = {
   prepaid: 'true',
   interestRate: 0,
   deferredRent: 0,
-  leaseIncentive: 0
+  leaseIncentive: 0,
+  initialDirectCosts: 0
 };
 
 const App = () => {
@@ -154,6 +155,14 @@ const App = () => {
       name: 'leaseIncentive',
       id: 'leaseIncentive',
       value: values.leaseIncentive,
+      onChange: handleChange
+    },
+    {
+      label: 'Initial Direct Costs:',
+      type: InputTypes.Number,
+      name: 'initialDirectCosts',
+      id: 'initialDirectCosts',
+      value: values.initialDirectCosts,
       onChange: handleChange
     }
   ];

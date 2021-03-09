@@ -1,5 +1,4 @@
 import { LeaseClassification } from '../enums';
-import { roundNumber } from '../utils';
 import { AssetFinance } from './Asset/AssetFinance';
 import { AssetOperating } from './Asset/AssetOperating';
 import { Liability } from './Liability/Liability';
@@ -77,6 +76,11 @@ export class Lease implements LeaseValues {
   presentValue: number;
   startDate: string;
   endDate: string;
+  deferredRent: number;
+  leaseIncentive: number;
+  initialDirectCosts: number;
+  useEconomicLife: boolean;
+  economicLife: number;
 
   constructor() {
     this.name = '';
@@ -96,7 +100,12 @@ export class Lease implements LeaseValues {
     classification: LeaseClassification,
     interestRate: number,
     payments: Payments,
-    prepaid: boolean
+    prepaid: boolean,
+    deferredRent?: number,
+    leaseIncentive?: number,
+    initialDirectCosts?: number,
+    useEconomicLife?: boolean,
+    economicLife?: number
   ): void {
     this.name = name;
     this.description = description;
@@ -106,6 +115,11 @@ export class Lease implements LeaseValues {
     this.interestRate = interestRate / 100;
     this.prepaid = prepaid;
     this.quantityOfPayments = this.getQuantityOfPayments();
+    this.deferredRent = deferredRent;
+    this.leaseIncentive = leaseIncentive;
+    this.initialDirectCosts = initialDirectCosts;
+    this.useEconomicLife = useEconomicLife;
+    this.economicLife = economicLife;
 
     // create and sort the payments array to get the start and end dates of the lease
     const paymentsArray = this.payments
@@ -132,8 +146,12 @@ export class Lease implements LeaseValues {
       this.interestRate,
       this.presentValue,
       this.quantityOfPayments,
-      this.prepaid
+      this.prepaid,
+      this.classification
     );
+
+    const liabilityBalance = this.liability.getLiabilityData()[0]
+      .beginningBalance;
 
     // create and calculate a new asset based off of classification
     if (this.classification === LeaseClassification.FINANCE) {
@@ -141,15 +159,20 @@ export class Lease implements LeaseValues {
 
       this.asset.setPropertiesFinance(
         this.startDate,
-        this.presentValue,
-        this.paymentStream.length
+        liabilityBalance,
+        this.paymentStream.length,
+        this.useEconomicLife,
+        this.economicLife
       );
     } else if (this.classification === LeaseClassification.OPERATING) {
       this.asset = new AssetOperating();
 
       this.asset.setPropertiesOperating(
         this.startDate,
-        this.presentValue,
+        liabilityBalance,
+        this.deferredRent,
+        this.leaseIncentive,
+        this.initialDirectCosts,
         this.paymentStream.length,
         this.getLiabilitySchedule()
       );
@@ -347,18 +370,69 @@ export class Lease implements LeaseValues {
    * Private function that calculates the present value of all payments
    */
   private calculatePresentValue(): number {
-    const paymentStream = this.paymentStream.map((month) => month.payment);
-    const rateOfReturn = this.interestRate / 12;
-    const presentValue = paymentStream.reduce(
-      (accumulator, currentValue, index) =>
-        accumulator + currentValue / Math.pow(rateOfReturn + 1, index + 1),
-      0
+    const paymentStream = this.paymentStream.map((month) => {
+      return { payment: month.payment, frequency: month.frequency };
+    });
+
+    const correctedPaymentStream = this.correctPaymentStreamForPVCalc(
+      paymentStream
     );
 
-    return roundNumber(presentValue, 2);
+    const reducerFunction = this.calcPresentValue(
+      this.interestRate,
+      this.prepaid
+    );
+
+    return correctedPaymentStream.reduce(reducerFunction, 0);
   }
 
-  // applyData(json) {
-  //   Object.assign(this, json);
-  // }
+  private presentValueInterestRate(interestRate, frequency) {
+    let rateOfReturn = interestRate;
+    if (frequency === PaymentFrequency.Monthly) {
+      rateOfReturn = interestRate / 12;
+    } else if (frequency === PaymentFrequency.Quarterly) {
+      rateOfReturn = interestRate / 4;
+    } else if (frequency === PaymentFrequency.SemiAnnual) {
+      rateOfReturn = interestRate / 2;
+    }
+
+    return rateOfReturn;
+  }
+
+  /**
+   * corrects the payment stream due to payment frequency
+   * @param paymentStream
+   * @returns
+   */
+  private correctPaymentStreamForPVCalc(
+    paymentStream: { payment: number; frequency: string }[]
+  ) {
+    return paymentStream.filter((payment) => payment.payment !== 0);
+  }
+
+  /**
+   * Generates the reducer function for PV calculation
+   * @param interestRate
+   * @returns
+   */
+  private calcPresentValue(interestRate: number, prepaid: boolean) {
+    return (
+      accumulator: number,
+      currentValue: { payment: number; frequency: string },
+      index: number
+    ) => {
+      const { payment, frequency } = currentValue;
+      const rateOfReturn = this.presentValueInterestRate(
+        interestRate,
+        frequency
+      );
+      if (prepaid) {
+        if (index === 0) return payment;
+
+        return accumulator + payment / Math.pow(1 + rateOfReturn, index);
+      } else {
+        return accumulator + payment / Math.pow(1 + rateOfReturn, index + 1);
+      }
+    };
+  }
 }
