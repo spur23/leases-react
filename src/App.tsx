@@ -5,8 +5,9 @@ import Download from './components/Download';
 import { createExcelData, createLease } from './helpers/utils';
 import { GeneratedLease } from './interfaces';
 import { useForm } from './hooks/useForm';
-import Input from './components/Input';
+import Input from './components/input/Input';
 import DataTable from './components/table/DataTable';
+import { FormStyled } from './StyledForm';
 
 export enum InputTypes {
   Select = 'select',
@@ -126,18 +127,6 @@ const App = () => {
       ]
     },
     {
-      label: 'Prepaid:',
-      type: InputTypes.Select,
-      name: 'prepaid',
-      id: 'prepaid',
-      value: values.prepaid,
-      onChange: handleChange,
-      options: [
-        { text: 'Yes', value: 'true' },
-        { text: 'No', value: 'false' }
-      ]
-    },
-    {
       label: 'Use Economic Life:',
       type: InputTypes.Select,
       name: 'useEconomicLife',
@@ -162,6 +151,19 @@ const App = () => {
           ? true
           : false
     },
+    {
+      label: 'Prepaid:',
+      type: InputTypes.Select,
+      name: 'prepaid',
+      id: 'prepaid',
+      value: values.prepaid,
+      onChange: handleChange,
+      options: [
+        { text: 'Yes', value: 'true' },
+        { text: 'No', value: 'false' }
+      ]
+    },
+
     {
       label: 'Interest Rate:',
       type: InputTypes.Number,
@@ -199,12 +201,14 @@ const App = () => {
   return (
     <>
       <div className="App">
-        <h1>Create a Lease</h1>
-        <form onSubmit={onSubmit}>
-          {inputObject.map((input, index) => (
-            <Input key={`${input}-${index}`} config={input} />
-          ))}
-          <div>
+        <FormStyled onSubmit={onSubmit}>
+          <h1>Create a Lease</h1>
+          <div className="input-container">
+            {inputObject.map((input, index) => (
+              <Input key={`${input}-${index}`} config={input} />
+            ))}
+          </div>
+          <div className="payments-container">
             <Payments
               onChange={onChangePayments}
               onClickAdd={onClickAdd}
@@ -213,7 +217,7 @@ const App = () => {
             />
           </div>
           <button type="submit">Create Lease</button>
-        </form>
+        </FormStyled>
         {generatedLease.asset.length !== 0 ? (
           <Download lease={leaseInfo} />
         ) : null}
