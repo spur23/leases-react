@@ -37,8 +37,10 @@ const Input = (props: InputProps) => {
         <>
           <label>{label}</label>
           <select name={name} id={id} value={value} onChange={onChange}>
-            {options.map((option) => (
-              <option value={option.value}>{option.text}</option>
+            {options.map((option, index) => (
+              <option key={`${option}-${index}`} value={option.value}>
+                {option.text}
+              </option>
             ))}
           </select>
         </>
