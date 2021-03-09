@@ -198,8 +198,8 @@ const App = () => {
       <div className="App">
         <h1>Create a Lease</h1>
         <form onSubmit={onSubmit}>
-          {inputObject.map((input) => (
-            <Input config={input} />
+          {inputObject.map((input, index) => (
+            <Input key={`${input}-${index}`} config={input} />
           ))}
           <div>
             <Payments
