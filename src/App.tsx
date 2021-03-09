@@ -22,7 +22,9 @@ const leaseInitialValues = {
   interestRate: 0,
   deferredRent: 0,
   leaseIncentive: 0,
-  initialDirectCosts: 0
+  initialDirectCosts: 0,
+  useEconomicLife: 'false',
+  economicLife: 0
 };
 
 const App = () => {
@@ -54,6 +56,8 @@ const App = () => {
 
     setLeaseInfo(leaseExcelData);
   }, [generatedLease]);
+
+  useEffect(() => {}, [values]);
 
   const onChangePayments = (updatedPayments: []): void => {
     setPayments(updatedPayments);
@@ -132,6 +136,28 @@ const App = () => {
         { text: 'Yes', value: 'true' },
         { text: 'No', value: 'false' }
       ]
+    },
+    {
+      label: 'Use Economic Life:',
+      type: InputTypes.Select,
+      name: 'useEconomicLife',
+      id: 'useEconomicLife',
+      value: values.useEconomicLife,
+      onChange: handleChange,
+      options: [
+        { text: 'Yes', value: 'true' },
+        { text: 'No', value: 'false' }
+      ],
+      show: values.classification === 'finance' ? true : false
+    },
+    {
+      label: 'Economic Life:',
+      type: InputTypes.Number,
+      name: 'economicLife',
+      id: 'economicLife',
+      value: values.economicLife,
+      onChange: handleChange,
+      show: values.useEconomicLife === 'true' ? true : false
     },
     {
       label: 'Interest Rate:',
