@@ -151,13 +151,16 @@ const App = () => {
       show: values.classification === 'finance' ? true : false
     },
     {
-      label: 'Economic Life:',
+      label: 'Economic Life (years):',
       type: InputTypes.Number,
       name: 'economicLife',
       id: 'economicLife',
       value: values.economicLife,
       onChange: handleChange,
-      show: values.useEconomicLife === 'true' ? true : false
+      show:
+        values.useEconomicLife === 'true' && values.classification === 'finance'
+          ? true
+          : false
     },
     {
       label: 'Interest Rate:',
