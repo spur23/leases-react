@@ -38,7 +38,9 @@ export const createLease = (payments, leaseInfo) => {
     interestRate,
     deferredRent,
     leaseIncentive,
-    initialDirectCosts
+    initialDirectCosts,
+    useEconomicLife,
+    economicLife
   } = leaseInfo;
 
   const paymentStream = generatePaymentStream(payments);
@@ -63,7 +65,9 @@ export const createLease = (payments, leaseInfo) => {
     prepaid,
     Number(deferredRent),
     Number(leaseIncentive),
-    Number(initialDirectCosts)
+    Number(initialDirectCosts),
+    useEconomicLife,
+    economicLife
   );
 
   return lease;
