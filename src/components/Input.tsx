@@ -12,6 +12,7 @@ interface ConfigObject {
       | React.ChangeEvent<HTMLSelectElement>
   ) => void;
   options?: { text: string; value: string }[];
+  show?: boolean;
 }
 
 interface InputProps {
@@ -19,32 +20,45 @@ interface InputProps {
 }
 
 const Input = (props: InputProps) => {
-  const { label, type, name, id, value, onChange, options } = props.config;
+  const {
+    label,
+    type,
+    name,
+    id,
+    value,
+    onChange,
+    options,
+    show
+  } = props.config;
 
-  if (type === InputTypes.Select) {
+  if (show === undefined || show) {
+    if (type === InputTypes.Select) {
+      return (
+        <>
+          <label>{label}</label>
+          <select name={name} id={id} value={value} onChange={onChange}>
+            {options.map((option) => (
+              <option value={option.value}>{option.text}</option>
+            ))}
+          </select>
+        </>
+      );
+    }
     return (
       <>
         <label>{label}</label>
-        <select name={name} id={id} value={value} onChange={onChange}>
-          {options.map((option) => (
-            <option value={option.value}>{option.text}</option>
-          ))}
-        </select>
+        <input
+          type={type}
+          name={name}
+          id={id}
+          value={value}
+          onChange={onChange}
+        />
       </>
     );
+  } else {
+    return null;
   }
-  return (
-    <>
-      <label>{label}</label>
-      <input
-        type={type}
-        name={name}
-        id={id}
-        value={value}
-        onChange={onChange}
-      />
-    </>
-  );
 };
 
 export default Input;
