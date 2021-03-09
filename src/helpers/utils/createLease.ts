@@ -45,7 +45,6 @@ const generatePaymentStream = (payments) => {
 };
 
 export const createLease = (payments, leaseInfo: LeaseInfo) => {
-  console.log(leaseInfo);
   const {
     name,
     description,

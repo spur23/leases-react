@@ -1,5 +1,5 @@
 import { capitalizeFirstLetter } from '../../helpers/utils';
-// import { DataTableStyled, DataTableBodyStyled } from './DataTableStyles';
+import { DataTableStyled, DataTableBodyStyled } from './DataTableStyles';
 
 interface Config {
   data: {}[];
@@ -11,7 +11,7 @@ interface Config {
  * @returns
  */
 const createTableRows = (dataArray: {}[]) => (
-  <tbody>
+  <DataTableBodyStyled>
     {dataArray.map((row, index) => (
       <tr key={`${row}-${index}`}>
         {Object.keys(row).map((key) => {
@@ -28,7 +28,7 @@ const createTableRows = (dataArray: {}[]) => (
         })}
       </tr>
     ))}
-  </tbody>
+  </DataTableBodyStyled>
 );
 
 /**
@@ -73,10 +73,10 @@ const DataTable = (props: Config) => {
   const tableHeader = createTableHeaders(data);
 
   return (
-    <table>
+    <DataTableStyled>
       {tableHeader}
       {tableRows}
-    </table>
+    </DataTableStyled>
   );
 };
 
