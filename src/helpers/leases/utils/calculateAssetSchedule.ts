@@ -13,7 +13,6 @@ const calculateAssetSchedule = (
     startingBalance,
     monthlyDepreciation,
     liabilitySchedule,
-    totalPayments,
     classification
   } = data;
 
