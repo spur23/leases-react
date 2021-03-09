@@ -7,6 +7,19 @@ import {
   Payments
 } from '../leases';
 
+interface LeaseInfo {
+  classification: string;
+  deferredRent: number;
+  description: string;
+  economicLife: number;
+  initialDirectCosts: number;
+  interestRate: number;
+  leaseIncentive: number;
+  name: string;
+  prepaid: string;
+  useEconomicLife: string;
+}
+
 const generatePaymentStream = (payments) => {
   const paymentStream = payments.map((el) => {
     const { amount, frequency, startDate, endDate } = el;
@@ -31,7 +44,8 @@ const generatePaymentStream = (payments) => {
   return paymentStream;
 };
 
-export const createLease = (payments, leaseInfo) => {
+export const createLease = (payments, leaseInfo: LeaseInfo) => {
+  console.log(leaseInfo);
   const {
     name,
     description,
@@ -39,7 +53,6 @@ export const createLease = (payments, leaseInfo) => {
     deferredRent,
     leaseIncentive,
     initialDirectCosts,
-    useEconomicLife,
     economicLife
   } = leaseInfo;
 
@@ -55,6 +68,7 @@ export const createLease = (payments, leaseInfo) => {
       : LeaseClassification.FINANCE;
 
   const prepaid = leaseInfo.prepaid === 'true' ? true : false;
+  const useEconomicLife = leaseInfo.useEconomicLife === 'true' ? true : false;
 
   lease.setProperties(
     name,
@@ -67,7 +81,7 @@ export const createLease = (payments, leaseInfo) => {
     Number(leaseIncentive),
     Number(initialDirectCosts),
     useEconomicLife,
-    economicLife
+    Number(economicLife)
   );
 
   return lease;
