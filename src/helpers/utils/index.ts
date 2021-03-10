@@ -1,5 +1,4 @@
-import { getFirstDay } from './getFirstDay';
-import { getLastDay } from './getLastDay';
+import { getFirstDay, getLastDay, getNextDay } from './dateFunctions';
 import { monthCorrection } from './monthCorrection';
 import { checkDateIsAfter } from './checkDateIsAfter';
 import { formatDate } from './formatDate';
@@ -10,6 +9,7 @@ import { capitalizeFirstLetter } from './capitalizeFirstLetter';
 export {
   getFirstDay,
   getLastDay,
+  getNextDay,
   monthCorrection,
   checkDateIsAfter,
   formatDate,
