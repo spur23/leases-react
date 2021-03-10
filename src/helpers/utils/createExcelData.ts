@@ -1,4 +1,5 @@
 import { GeneratedLease } from '../../interfaces';
+import { capitalizeFirstLetter } from './index';
 
 export const createExcelData = (lease: GeneratedLease): any[] => {
   const obj = { ...lease };
@@ -17,18 +18,25 @@ export const createExcelData = (lease: GeneratedLease): any[] => {
     month.interestExpense,
     month.interestPayment,
     month.principal,
-    month.endingBalance
+    month.endingBalance,
+    month.shortTermBalance,
+    month.longTermBalance
   ]);
 
   const result = [
     {
       columns: [''],
       data: [
-        ['Name: ', obj.lease],
-        ['Description: ', obj.description],
-        ['Classificatoin: ', obj.classification],
+        ['Name: ', capitalizeFirstLetter(obj.lease)],
+        ['Description: ', capitalizeFirstLetter(obj.description)],
+        ['Classificatoin: ', capitalizeFirstLetter(obj.classification)],
         ['Prepaid', obj.prepaid],
-        ['Discount Rate: ', obj.interestRate * 100],
+        [
+          'Discount Rate: ',
+          Number(obj.interestRate).toLocaleString('en-US', {
+            style: 'percent'
+          })
+        ],
         ['Total Payments: ', obj.totalPayments],
         ['Present Value: ', obj.presentValue],
         ['Start Date: ', obj.startDate],
@@ -58,7 +66,9 @@ export const createExcelData = (lease: GeneratedLease): any[] => {
         'Interest Expense',
         'Interest Payment',
         'Principal',
-        'Ending Balance'
+        'Ending Balance',
+        'Short Term Balance',
+        'Long Term Balance'
       ],
       data: liabilitySchedule
     }
