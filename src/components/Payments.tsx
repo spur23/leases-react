@@ -50,7 +50,7 @@ const Payments = ({ onChange, onClickAdd, onClickDelete, paymentsArr }) => {
   };
 
   return (
-    <div>
+    <>
       <div>
         <button onClick={onClickAdd}>Add Payment</button>
         <button onClick={onClickDelete}>Delete Payment</button>
@@ -112,7 +112,7 @@ const Payments = ({ onChange, onClickAdd, onClickDelete, paymentsArr }) => {
           ))}
         </tbody>
       </table>
-    </div>
+    </>
   );
 };
 
