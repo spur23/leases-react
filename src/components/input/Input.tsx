@@ -1,6 +1,4 @@
 import { InputTypes } from '../../App';
-import { InputStyled } from './StyledInput';
-import { LabelStyled } from './StyledLabel';
 
 interface ConfigObject {
   label: string;
@@ -36,8 +34,8 @@ const Input = (props: InputProps) => {
   if (show === undefined || show) {
     if (type === InputTypes.Select) {
       return (
-        <InputStyled>
-          <LabelStyled>{label}</LabelStyled>
+        <>
+          <label htmlFor={id}>{label}</label>
           <select name={name} id={id} value={value} onChange={onChange}>
             {options.map((option, index) => (
               <option key={`${option}-${index}`} value={option.value}>
@@ -45,12 +43,12 @@ const Input = (props: InputProps) => {
               </option>
             ))}
           </select>
-        </InputStyled>
+        </>
       );
     }
     return (
-      <InputStyled>
-        <LabelStyled>{label}</LabelStyled>
+      <>
+        <label htmlFor={id}>{label}</label>
         <input
           type={type}
           name={name}
@@ -58,7 +56,7 @@ const Input = (props: InputProps) => {
           value={value}
           onChange={onChange}
         />
-      </InputStyled>
+      </>
     );
   } else {
     return null;
