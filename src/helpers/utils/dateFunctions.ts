@@ -1,5 +1,3 @@
-import { monthCorrection } from '.';
-
 /**
  * takes a date as string returns the first day of the month
  * @param value
@@ -51,4 +49,32 @@ export const getNextDay = (value: string): string => {
   const newDate = new Date(date.getFullYear(), date.getMonth() + 1, 1);
   const month = monthCorrection(newDate.getMonth());
   return `${newDate.getFullYear()}-${month}-${day}`;
+};
+
+/**
+ * corrects the month to two digits
+ * @param month
+ */
+export const monthCorrection = (month: number | string): string => {
+  const monthNumber = Number(month);
+
+  const correctedMonth =
+    monthNumber + 1 < 10 ? `0${monthNumber + 1}` : monthNumber + 1;
+
+  return correctedMonth.toString();
+};
+
+/**
+ * Checks if the start date is after the end date
+ * @param startDate
+ * @param endDate
+ */
+export const checkDateIsAfter = (
+  startDate: string,
+  endDate: string
+): boolean => {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+
+  return end.valueOf() > start.valueOf();
 };
