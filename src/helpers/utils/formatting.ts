@@ -6,3 +6,15 @@ export const formatDate = (value: string) => {
 
   return `${dateArr[1]}/${dateArr[2]}/${dateArr[0]}`;
 };
+
+export const formatNumberDecimal = (value: number): string =>
+  value.toLocaleString('en-US', {
+    maximumFractionDigits: 2,
+    style: 'decimal'
+  });
+
+export const formatNumberPercent = (value: number): string =>
+  value.toLocaleString('en-US', {
+    maximumFractionDigits: 2,
+    style: 'percent'
+  });
