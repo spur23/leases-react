@@ -9,6 +9,8 @@ import Input from './components/input/Input';
 import DataTable from './components/table/DataTable';
 import { FormStyled } from './StyledForm';
 
+import './App.css';
+
 export enum InputTypes {
   Select = 'select',
   Text = 'text',
@@ -203,11 +205,11 @@ const App = () => {
       <div className="App">
         <FormStyled onSubmit={onSubmit}>
           <h1>Create a Lease</h1>
-          <div className="input-container">
-            {inputObject.map((input, index) => (
+          {inputObject.map((input, index) => (
+            <div className="input-container">
               <Input key={`${input}-${index}`} config={input} />
-            ))}
-          </div>
+            </div>
+          ))}
           <div className="payments-container">
             <Payments
               onChange={onChangePayments}
