@@ -10,6 +10,7 @@ import DataTable from './components/table/DataTable';
 import { FormStyled } from './StyledForm';
 
 import './App.css';
+import { getNextDay } from './helpers/utils/dateFunctions';
 
 export enum InputTypes {
   Select = 'select',
@@ -51,7 +52,7 @@ const App = () => {
   const [values, handleChange] = useForm(leaseInitialValues);
 
   const [payments, setPayments] = useState([
-    { startDate: '', endDate: '', frequency: 'monthly', amount: 0 }
+    { startDate: '', endDate: '', frequency: 'monthly', amount: 0, min: '' }
   ]);
 
   useEffect(() => {
@@ -71,8 +72,15 @@ const App = () => {
   ): void => {
     e.preventDefault();
     const arr = [...payments];
-
-    arr.push({ startDate: '', endDate: '', frequency: 'monthly', amount: 0 });
+    const priorEndDate = arr[arr.length - 1].endDate;
+    const newStartDate = getNextDay(priorEndDate);
+    arr.push({
+      startDate: newStartDate,
+      endDate: '',
+      frequency: 'monthly',
+      amount: 0,
+      min: newStartDate
+    });
 
     setPayments(arr);
   };
@@ -106,7 +114,8 @@ const App = () => {
       name: 'name',
       id: 'name',
       value: values.name,
-      onChange: handleChange
+      onChange: handleChange,
+      required: true
     },
     {
       label: 'Description:',
@@ -114,7 +123,8 @@ const App = () => {
       name: 'description',
       id: 'description',
       value: values.description,
-      onChange: handleChange
+      onChange: handleChange,
+      required: true
     },
     {
       label: 'Classification:',
@@ -163,7 +173,8 @@ const App = () => {
       options: [
         { text: 'Yes', value: 'true' },
         { text: 'No', value: 'false' }
-      ]
+      ],
+      required: true
     },
 
     {
@@ -172,7 +183,8 @@ const App = () => {
       name: 'interestRate',
       id: 'interestRate',
       value: values.interestRate,
-      onChange: handleChange
+      onChange: handleChange,
+      required: true
     },
     {
       label: 'Deferred Rent:',
@@ -201,8 +213,8 @@ const App = () => {
   ];
 
   return (
-    <>
-      <div className="App">
+    <div className="App">
+      <>
         <FormStyled onSubmit={onSubmit}>
           <h1>Create a Lease</h1>
           {inputObject.map((input, index) => (
@@ -223,16 +235,8 @@ const App = () => {
         {generatedLease.asset.length !== 0 ? (
           <Download lease={leaseInfo} />
         ) : null}
-      </div>
-      <div>
-        <div>
-          {generatedLease.asset.length !== 0 ? (
-            <>
-              <h3>Asset Schedule</h3>
-              <DataTable data={generatedLease.asset} />
-            </>
-          ) : null}
-        </div>
+      </>
+      <div className="schedule-container">
         <div>
           {generatedLease.liability.length !== 0 ? (
             <>
@@ -241,8 +245,16 @@ const App = () => {
             </>
           ) : null}
         </div>
+        <div>
+          {generatedLease.asset.length !== 0 ? (
+            <>
+              <h3>Asset Schedule</h3>
+              <DataTable data={generatedLease.asset} />
+            </>
+          ) : null}
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -76,6 +76,7 @@ const Payments = ({ onChange, onClickAdd, onClickDelete, paymentsArr }) => {
                   id={`payment ${index}`}
                   value={payment.startDate}
                   onChange={handleChange}
+                  min={payment.min}
                 />
               </td>
               <td>
@@ -85,6 +86,7 @@ const Payments = ({ onChange, onClickAdd, onClickDelete, paymentsArr }) => {
                   id={`payment ${index}`}
                   value={payment.endDate}
                   onChange={handleChange}
+                  min={getLastDay(payment.min)}
                 />
               </td>
               <td>
