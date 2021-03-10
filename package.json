@@ -1,4 +1,5 @@
 {
+  "homepage": "http://spur23.github.io/leases-react/",
   "name": "leases-react",
   "version": "0.1.0",
   "private": true,
@@ -6,18 +7,17 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.1",
-    "filesaver": "^0.0.13",
-    "papaparse": "^5.3.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-export-excel": "^0.5.3",
     "react-scripts": "4.0.3",
     "styled-components": "^5.2.1",
-    "typescript": "^4.2.2",
-    "web-vitals": "^1.1.0"
+    "typescript": "^4.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
+    "predeploy": "react-scripts build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
