@@ -55,6 +55,7 @@ const App = () => {
   ]);
 
   useEffect(() => {
+    if (generatedLease.lease === '') return;
     const leaseExcelData = createExcelData(generatedLease);
 
     setLeaseInfo(leaseExcelData);
@@ -217,8 +218,8 @@ const App = () => {
         <FormStyled onSubmit={onSubmit}>
           <h1>Create a Lease</h1>
           {inputObject.map((input, index) => (
-            <div className="input-container">
-              <Input key={`${input}-${index}`} config={input} />
+            <div key={`${input}-${index}`} className="input-container">
+              <Input config={input} />
             </div>
           ))}
           <div className="payments-container">
@@ -232,7 +233,7 @@ const App = () => {
           <button type="submit">Create Lease</button>
         </FormStyled>
         {generatedLease.asset.length !== 0 ? (
-          <Download lease={leaseInfo} />
+          <Download lease={leaseInfo} fileName={values.name} />
         ) : null}
       </>
       <div className="schedule-container">

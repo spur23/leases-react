@@ -22,8 +22,9 @@ body {
 
 .schedule-container > div {
   width: min-content;
-  margin: auto;
   margin-top: none;
+  margin-right: auto;
+  margin-bottom: auto;
   margin-left: 2rem;
 }
 
