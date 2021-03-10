@@ -5,7 +5,7 @@ const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 
 const Download = ({ lease }) => {
   return (
-    <ExcelFile>
+    <ExcelFile element={<button>Download Schedules</button>}>
       <ExcelSheet dataSet={lease} name="Organization" />
     </ExcelFile>
   );
