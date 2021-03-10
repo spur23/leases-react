@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Payments from './components/Payments';
 import Download from './components/Download';
 
-import { createExcelData, createLease } from './helpers/utils';
+import { createExcelData, createLease, getNextDay } from './helpers/utils';
 import { GeneratedLease } from './interfaces';
 import { useForm } from './hooks/useForm';
 import Input from './components/input/Input';
@@ -10,7 +10,6 @@ import DataTable from './components/table/DataTable';
 import { FormStyled } from './StyledForm';
 
 import './App.css';
-import { getNextDay } from './helpers/utils/dateFunctions';
 
 export enum InputTypes {
   Select = 'select',
