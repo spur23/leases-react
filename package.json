@@ -1,6 +1,6 @@
 {
   "homepage": "https://spur23.github.io/leases-react/",
-  "name": "react-leases",
+  "name": "leases-react",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
