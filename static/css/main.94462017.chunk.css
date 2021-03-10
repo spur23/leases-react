@@ -21,7 +21,7 @@ body {
   width: -moz-min-content;
   width: min-content;
   margin: auto;
-  margin-top: none;
+  margin-top: 1rem;
   margin-left: 2rem;
 }
 .schedule-container > div > h3 {
