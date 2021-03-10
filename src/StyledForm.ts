@@ -7,14 +7,14 @@ const FormStyled = styled.form`
   max-width: 50rem;
   background: #f7f9f9;
   box-sizing: border-box;
-  border-radius: 5px;
+  border-radius: 10px;
 
   h1 {
     text-align: center;
     border-bottom: 1px solid black;
     margin: 0;
     margin-bottom: 1rem;
-    background: #55efc4;
+    background-color: #2ecc71;
     background-size: 100% 100%;
     color: white;
     padding-bottom: 1rem;
@@ -29,9 +29,16 @@ const FormStyled = styled.form`
   }
 
   .payments-container {
-    margin-top: 1rem;
     width: 75%;
     margin: auto;
+    display: flex;
+    margin-top: 1rem;
+    flex-direction: column;
+  }
+
+  .payments-container > div {
+    display: flex;
+    justify-content: space-evenly;
   }
 
   .input-container > input,
@@ -62,6 +69,28 @@ const FormStyled = styled.form`
   button {
     display: block;
     margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background-color: #2ecc71;
+    font-size: 14px;
+    padding: 10px;
+    padding-left: 16px;
+    padding-right: 16px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #81ecec;
+  }
+
+  button[type='submit'] {
+    margin: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 
   @media (min-width: 40rem) {
