@@ -7,3 +7,26 @@ body {
 body {
   font-family: 'Roboto', sans-serif;
 }
+
+.App {
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-container {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-content: center;
+}
+
+.schedule-container > div {
+  width: min-content;
+  margin: auto;
+  margin-top: none;
+  margin-left: 2rem;
+}
+
+.schedule-container > div > h3 {
+  text-align: center;
+}
