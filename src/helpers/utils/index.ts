@@ -5,7 +5,12 @@ import {
   monthCorrection,
   checkDateIsAfter
 } from './dateFunctions';
-import { formatDate, capitalizeFirstLetter } from './formatting';
+import {
+  formatDate,
+  capitalizeFirstLetter,
+  formatNumberDecimal,
+  formatNumberPercent
+} from './formatting';
 import { createLease } from './createLease';
 import { createExcelData } from './createExcelData';
 
@@ -18,5 +23,7 @@ export {
   formatDate,
   createLease,
   createExcelData,
-  capitalizeFirstLetter
+  capitalizeFirstLetter,
+  formatNumberDecimal,
+  formatNumberPercent
 };
