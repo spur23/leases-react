@@ -13,6 +13,7 @@ interface ConfigObject {
   ) => void;
   options?: { text: string; value: string }[];
   show?: boolean;
+  required?: boolean;
 }
 
 interface InputProps {
@@ -28,7 +29,8 @@ const Input = (props: InputProps) => {
     value,
     onChange,
     options,
-    show
+    show,
+    required
   } = props.config;
 
   if (show === undefined || show) {
@@ -55,6 +57,7 @@ const Input = (props: InputProps) => {
           id={id}
           value={value}
           onChange={onChange}
+          required={required}
         />
       </>
     );
