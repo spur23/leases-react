@@ -1,5 +1,5 @@
 {
-  "homepage": "http://spur23.github.io/leases-react/",
+  "homepage": "https://spur23.github.io/leases-react/",
   "name": "leases-react",
   "version": "0.1.0",
   "private": true,
@@ -47,6 +47,7 @@
     "@types/papaparse": "^5.2.5",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
-    "@types/styled-components": "^5.1.7"
+    "@types/styled-components": "^5.1.7",
+    "gh-pages": "^3.1.0"
   }
 }
