@@ -1,5 +1,6 @@
 import { GeneratedLease } from '../../interfaces';
 import { capitalizeFirstLetter } from './index';
+import { formatNumberPercent } from './formatting';
 
 export const createExcelData = (lease: GeneratedLease): any[] => {
   const obj = { ...lease };
@@ -31,12 +32,7 @@ export const createExcelData = (lease: GeneratedLease): any[] => {
         ['Description: ', capitalizeFirstLetter(obj.description)],
         ['Classificatoin: ', capitalizeFirstLetter(obj.classification)],
         ['Prepaid', obj.prepaid],
-        [
-          'Discount Rate: ',
-          Number(obj.interestRate).toLocaleString('en-US', {
-            style: 'percent'
-          })
-        ],
+        ['Discount Rate: ', formatNumberPercent(obj.interestRate)],
         ['Total Payments: ', obj.totalPayments],
         ['Present Value: ', obj.presentValue],
         ['Start Date: ', obj.startDate],
