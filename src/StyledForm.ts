@@ -5,7 +5,6 @@ const FormStyled = styled.form`
   border: thin solid lightgrey;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
   max-width: 50rem;
-  background: #f7f9f9;
   box-sizing: border-box;
   border-radius: 10px;
 
@@ -55,6 +54,7 @@ const FormStyled = styled.form`
   select {
     border: 1px solid grey;
     border-radius: 4px;
+    text-align: right;
   }
 
   input:focus,
