@@ -13,6 +13,7 @@ import {
 } from './formatting';
 import { createLease } from './createLease';
 import { createExcelData } from './createExcelData';
+import { discountRate } from './discountRate';
 
 export {
   getFirstDay,
@@ -25,5 +26,6 @@ export {
   createExcelData,
   capitalizeFirstLetter,
   formatNumberDecimal,
-  formatNumberPercent
+  formatNumberPercent,
+  discountRate
 };

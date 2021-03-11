@@ -10,6 +10,7 @@ import { AssetSchedulePrint } from '../interfaces/AssetSchedulePrint';
 import { LiabilitySchedulePrint } from '../interfaces/LiabilitySchedulePrint';
 import { PaymentInformation } from '../interfaces/PaymentInformation';
 import { PaymentStream } from '../interfaces/PaymentStream';
+import { discountRate } from '../../utils/discountRate';
 
 interface LeaseInformation {
   lease: string;
@@ -412,7 +413,7 @@ export class Lease implements LeaseValues {
     ) => {
       const { payment, frequency } = currentValue;
 
-      const rateOfReturn = interestRate / 12;
+      const rateOfReturn = discountRate(interestRate);
 
       if (prepaid) {
         if (index === 0) return payment;

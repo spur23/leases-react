@@ -1,6 +1,7 @@
 import { roundNumber } from '.';
 import { LiabilityMonthly } from '../classes/Liability/LiabilityMonthly';
 import { PaymentStream } from '../interfaces';
+import { discountRate } from '../../utils/discountRate';
 /**
  *Calculates liability monthly schedule.
  */
@@ -17,8 +18,7 @@ const generateLiability = (
     const date = new Date(payments[i].month);
     const { payment } = payments[i];
 
-    // const annlPayments = annualPayments(frequency);
-    const correctedInterestRate = interestRate / 12;
+    const correctedInterestRate = discountRate(interestRate);
 
     result.push(
       calculateLiability(
@@ -66,11 +66,9 @@ const calculateLiability = (
       const month = new LiabilityMonthly(
         date,
         payment,
-        roundNumber(principal, 2),
         roundNumber(startingBalance, 2),
-        interestPayment,
+        interestRate,
         roundNumber(interestExpense, 2),
-        roundNumber(interestPayment, 2),
         roundNumber(endingBalance, 2),
         prepaid
       );
@@ -88,11 +86,9 @@ const calculateLiability = (
       const month = new LiabilityMonthly(
         date,
         payment,
-        roundNumber(principal, 2),
         roundNumber(startingBalance, 2),
-        interestPayment,
+        interestRate,
         roundNumber(interestExpense, 2),
-        roundNumber(interestPayment, 2),
         roundNumber(endingBalance, 2),
         prepaid
       );
@@ -132,11 +128,9 @@ const calculateLiability = (
       const month = new LiabilityMonthly(
         date,
         payment,
-        roundNumber(principal, 2),
         roundNumber(endingBalance, 2),
-        0,
+        interestRate,
         roundNumber(currentMonthInterestExpense, 2),
-        roundNumber(interestPayment, 2),
         roundNumber(currentMonthEndingBalance, 2),
         prepaid
       );
@@ -158,11 +152,9 @@ const calculateLiability = (
       const month = new LiabilityMonthly(
         date,
         payment,
-        roundNumber(principal, 2),
         roundNumber(endingBalance, 2),
-        0,
+        interestRate,
         roundNumber(currentMonthInterestExpense, 2),
-        roundNumber(interestPayment, 2),
         roundNumber(currentMonthEndingBalance, 2),
         prepaid
       );
