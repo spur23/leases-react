@@ -7,11 +7,9 @@ export class LiabilityMonthly {
   constructor(
     public date: Date,
     public payment: number,
-    public principal: number,
     public beginningBalance: number,
     public interestRate: number,
     public interestExpense: number,
-    public interestPayment: number,
     public endingBalance: number,
     public prepaid?: boolean
   ) {
@@ -19,9 +17,7 @@ export class LiabilityMonthly {
     this.beginningBalance = beginningBalance;
     this.interestRate = interestRate;
     this.interestExpense = interestExpense;
-    this.interestPayment = interestPayment;
     this.payment = payment;
-    this.principal = principal;
     this.endingBalance = endingBalance;
   }
 
@@ -31,8 +27,6 @@ export class LiabilityMonthly {
       beginningBalance: this.beginningBalance,
       payment: this.payment,
       interestExpense: this.interestExpense,
-      interestPayment: this.interestPayment,
-      principal: this.principal,
       endingBalance: this.endingBalance,
       shortTermBalance: this.shortTermBalance,
       longTermBalance: this.longTermBalance
