@@ -43,10 +43,6 @@ export const createLease = (payments, leaseInfo: LeaseType) => {
     economicLife
   } = leaseInfo;
 
-  // const paymentStream = generatePaymentStream(payments);
-
-  // const leasePayments = new Payments(paymentStream);
-
   const leasePayments = generatePaymentStream(payments);
 
   const lease = new Lease();
