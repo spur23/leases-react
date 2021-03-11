@@ -4,6 +4,7 @@ import './App.css';
 import Navbar from './components/navbar/Navbar';
 import CreateLeasePage from './pages/CreateLease';
 import HomePage from './pages/HomePage';
+import PresentValueCalculatorPage from './pages/PresentValueCalculator';
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
       <Router>
         <HomePage path="/leases-react/" />
         <CreateLeasePage path="/leases-react/create-lease" />
+        <PresentValueCalculatorPage path="leases-react/present-value-calculator" />
       </Router>
     </div>
   );
