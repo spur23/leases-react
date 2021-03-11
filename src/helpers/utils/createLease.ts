@@ -6,21 +6,9 @@ import {
   PaymentFrequency,
   Payments
 } from '../leases';
+import { LeaseType } from '../../hooks/useForm';
 
-interface LeaseInfo {
-  classification: string;
-  deferredRent: number;
-  description: string;
-  economicLife: number;
-  initialDirectCosts: number;
-  interestRate: number;
-  leaseIncentive: number;
-  name: string;
-  prepaid: string;
-  useEconomicLife: string;
-}
-
-const generatePaymentStream = (payments) => {
+export const generatePaymentStream = (payments): Payments => {
   const paymentStream = payments.map((el) => {
     const { amount, frequency, startDate, endDate } = el;
     const stDate = formatDate(startDate);
@@ -41,10 +29,10 @@ const generatePaymentStream = (payments) => {
     });
   });
 
-  return paymentStream;
+  return new Payments(paymentStream);
 };
 
-export const createLease = (payments, leaseInfo: LeaseInfo) => {
+export const createLease = (payments, leaseInfo: LeaseType) => {
   const {
     name,
     description,
@@ -55,9 +43,11 @@ export const createLease = (payments, leaseInfo: LeaseInfo) => {
     economicLife
   } = leaseInfo;
 
-  const paymentStream = generatePaymentStream(payments);
+  // const paymentStream = generatePaymentStream(payments);
 
-  const leasePayments = new Payments(paymentStream);
+  // const leasePayments = new Payments(paymentStream);
+
+  const leasePayments = generatePaymentStream(payments);
 
   const lease = new Lease();
 
