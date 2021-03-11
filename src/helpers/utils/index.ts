@@ -14,6 +14,7 @@ import {
 import { createLease, generatePaymentStream } from './createLease';
 import { createExcelData } from './createExcelData';
 import { discountRate } from './discountRate';
+import { calculatePresentValue } from './calculatePresentValue';
 
 export {
   getFirstDay,
@@ -28,5 +29,6 @@ export {
   formatNumberDecimal,
   formatNumberPercent,
   discountRate,
-  generatePaymentStream
+  generatePaymentStream,
+  calculatePresentValue
 };
