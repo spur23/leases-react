@@ -1,4 +1,4 @@
-import { InputTypes } from '../../App';
+import { InputTypes } from '../../pages/CreateLease';
 
 interface ConfigObject {
   label: string;
