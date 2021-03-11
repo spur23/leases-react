@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-interface Lease {
+export interface LeaseType {
   economicLife?: number;
   useEconomicLife?: string;
   name?: string;
@@ -14,9 +14,9 @@ interface Lease {
 }
 
 const useForm = (
-  initialValues: Lease
+  initialValues: LeaseType
 ): [
-  Lease,
+  LeaseType,
   (
     event:
       | React.FormEvent<HTMLInputElement>
