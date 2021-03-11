@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 
 interface Lease {
-  economicLife: number;
-  useEconomicLife: string;
-  name: string;
-  description: string;
-  classification: string;
-  prepaid: string;
-  interestRate: number;
-  deferredRent: number;
-  leaseIncentive: number;
-  initialDirectCosts: number;
+  economicLife?: number;
+  useEconomicLife?: string;
+  name?: string;
+  description?: string;
+  classification?: string;
+  prepaid?: string;
+  interestRate?: number;
+  deferredRent?: number;
+  leaseIncentive?: number;
+  initialDirectCosts?: number;
 }
 
 const useForm = (
