@@ -7,6 +7,7 @@ import { InputTypes } from './CreateLease';
 import { useForm } from '../hooks/useForm';
 import Input from '../components/input/Input';
 import { calculatePresentValue, formatNumberDecimal } from '../helpers/utils';
+import StyledPresentValueCalc from './StyledPresentValueCalc';
 
 const leaseInitialValues = {
   prepaid: 'true',
@@ -69,24 +70,32 @@ const PresentValueCalculatorPage = (props: RouteComponentProps) => {
   ];
 
   return (
-    <div className="presentvaluepage-container">
+    <StyledPresentValueCalc>
       <h4>PV Calculator</h4>
-      <p>Calculated Present Value: {formatNumberDecimal(presentValue)}</p>
       <form onSubmit={onSubmit}>
+        {presentValue !== 0 && (
+          <p>Calculated Present Value: {formatNumberDecimal(presentValue)}</p>
+        )}
         {inputObject.map((input, index) => (
           <div key={`${input}-${index}`} className="input-container">
             <Input config={input} />
           </div>
         ))}
-        <Payments
-          onChange={onChangePayments}
-          onClickAdd={onClickAddPayment}
-          onClickDelete={onClickDeletePayment}
-          paymentsArr={payments}
-        />
-        <button type="submit">Calculate PV</button>
+        <div className="payments-container">
+          <Payments
+            onChange={onChangePayments}
+            onClickAdd={onClickAddPayment}
+            onClickDelete={onClickDeletePayment}
+            paymentsArr={payments}
+          />
+        </div>
+        <div className="submit-button-container">
+          <button type="submit" className="form-submit">
+            Calculate PV
+          </button>
+        </div>
       </form>
-    </div>
+    </StyledPresentValueCalc>
   );
 };
 
