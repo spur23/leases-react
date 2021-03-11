@@ -380,8 +380,6 @@ export class Lease implements LeaseValues {
       this.prepaid
     );
 
-    console.log(paymentStream);
-
     return paymentStream.reduce(reducerFunction, 0);
   }
 
