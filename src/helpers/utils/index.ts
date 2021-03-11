@@ -11,7 +11,7 @@ import {
   formatNumberDecimal,
   formatNumberPercent
 } from './formatting';
-import { createLease } from './createLease';
+import { createLease, generatePaymentStream } from './createLease';
 import { createExcelData } from './createExcelData';
 import { discountRate } from './discountRate';
 
@@ -27,5 +27,6 @@ export {
   capitalizeFirstLetter,
   formatNumberDecimal,
   formatNumberPercent,
-  discountRate
+  discountRate,
+  generatePaymentStream
 };
