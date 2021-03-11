@@ -3,6 +3,8 @@ import styled from 'styled-components';
 const StyledPresentValueCalc = styled.div`
   display: flex;
   flex-direction: column;
+  margin: auto;
+  width: 50%;
 
   button {
     padding: 0.25rem;
@@ -11,19 +13,18 @@ const StyledPresentValueCalc = styled.div`
 
   .payments-container {
     margin-top: 2rem;
-    /* border: 1px solid black; */
   }
 
   .payments-container,
   .submit-button-container,
   .input-container,
+  .presentvalue-container,
   .payments-container > div {
     display: flex;
   }
 
   .payments-container,
   .submit-button-container {
-    width: 30%;
     align-content: center;
   }
 
@@ -41,9 +42,21 @@ const StyledPresentValueCalc = styled.div`
     align-content: center;
   }
 
-  .input-container {
+  .error {
+    margin: none;
+  }
+
+  .input-container,
+  .presentvalue-container {
     justify-content: space-between;
-    width: 25%;
+  }
+
+  .payments-container > p {
+    margin: none;
+  }
+
+  .presentvalue-container {
+    font-weight: bold;
   }
 
   .input-container > select,
