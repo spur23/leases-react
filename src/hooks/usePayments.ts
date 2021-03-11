@@ -15,8 +15,10 @@ export const usePayments = () => {
   ): void => {
     e.preventDefault();
     const arr = [...payments];
+
     const priorEndDate = arr[arr.length - 1].endDate;
     const newStartDate = getNextDay(priorEndDate);
+
     arr.push({
       startDate: newStartDate,
       endDate: '',
