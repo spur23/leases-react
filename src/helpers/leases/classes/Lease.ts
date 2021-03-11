@@ -383,20 +383,9 @@ export class Lease implements LeaseValues {
       this.prepaid
     );
 
-    return correctedPaymentStream.reduce(reducerFunction, 0);
-  }
+    console.log(paymentStream);
 
-  private presentValueInterestRate(interestRate, frequency) {
-    let rateOfReturn = interestRate;
-    if (frequency === PaymentFrequency.Monthly) {
-      rateOfReturn = interestRate / 12;
-    } else if (frequency === PaymentFrequency.Quarterly) {
-      rateOfReturn = interestRate / 4;
-    } else if (frequency === PaymentFrequency.SemiAnnual) {
-      rateOfReturn = interestRate / 2;
-    }
-
-    return rateOfReturn;
+    return paymentStream.reduce(reducerFunction, 0);
   }
 
   /**
@@ -422,10 +411,9 @@ export class Lease implements LeaseValues {
       index: number
     ) => {
       const { payment, frequency } = currentValue;
-      const rateOfReturn = this.presentValueInterestRate(
-        interestRate,
-        frequency
-      );
+
+      const rateOfReturn = interestRate / 12;
+
       if (prepaid) {
         if (index === 0) return payment;
 
