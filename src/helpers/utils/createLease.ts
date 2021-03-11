@@ -33,7 +33,7 @@ const generatePaymentStream = (payments) => {
           ? PaymentFrequency.Monthly
           : frequency === 'quarterly'
           ? PaymentFrequency.Quarterly
-          : frequency === 'semiannual'
+          : frequency === 'semiAnnual'
           ? PaymentFrequency.SemiAnnual
           : PaymentFrequency.Annual,
       startDate: stDate,
