@@ -84,8 +84,6 @@ export class Liability implements LiabilityValues {
         beginningBalance,
         payment,
         interestExpense,
-        interestPayment,
-        principal,
         endingBalance,
         shortTermBalance,
         longTermBalance
@@ -96,8 +94,6 @@ export class Liability implements LiabilityValues {
         beginningBalance,
         payment,
         interestExpense,
-        interestPayment,
-        principal,
         endingBalance,
         shortTermBalance,
         longTermBalance
