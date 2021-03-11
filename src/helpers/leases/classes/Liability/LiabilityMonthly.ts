@@ -17,8 +17,9 @@ export class LiabilityMonthly {
   ) {
     this.date = date;
     this.beginningBalance = beginningBalance;
-    this.interestExpense = interestRate;
+    this.interestRate = interestRate;
     this.interestExpense = interestExpense;
+    this.interestPayment = interestPayment;
     this.payment = payment;
     this.principal = principal;
     this.endingBalance = endingBalance;
