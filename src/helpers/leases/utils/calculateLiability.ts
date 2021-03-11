@@ -55,6 +55,7 @@ const calculateLiability = (
 
     if (prepaid) {
       const interestExpense = (startingBalance - payment) * interestRate;
+
       const endingBalance = endBalance(
         startingBalance,
         interestExpense,
@@ -99,6 +100,8 @@ const calculateLiability = (
       return month;
     }
   } else {
+    // get prior month ending balance and interest expense for
+    // current months beginning balance and interest payment
     const { interestExpense, endingBalance } = schedule[
       index - 1
     ].getMonthlyData();
@@ -107,9 +110,13 @@ const calculateLiability = (
       let currentMonthInterestExpense =
         (endingBalance - payment) * interestRate;
 
-      const principal = payment - interestExpense;
+      let principal = payment - interestExpense;
+      let interestPayment = interestExpense;
 
-      const interestPayment = interestExpense;
+      if (payment === 0) {
+        principal = 0;
+        interestPayment = 0;
+      }
 
       if (index === paymentsLength - 1) {
         currentMonthInterestExpense = 0;
@@ -165,6 +172,14 @@ const calculateLiability = (
   }
 };
 
+/**
+ * Calculate the ending balance for the month
+ * @param beginningBalance
+ * @param interestExpense
+ * @param principal
+ * @param interestPayment
+ * @returns
+ */
 const endBalance = (
   beginningBalance: number,
   interestExpense: number,
@@ -187,20 +202,20 @@ const calculateSTLTBalances = (liabilitySchedule) => {
   );
 
   for (let i = 0; i < result.length; i++) {
-    if (i < result.length - 12) {
-      for (let y = 0; y < 12; y++) {
-        stBalance += result[y + i].principal;
-      }
-      ltBalance = result[i].endingBalance - stBalance;
-      result[i].shortTermBalance = roundNumber(stBalance, 2);
-      result[i].longTermBalance = roundNumber(ltBalance, 2);
+    if (result[i + 11]) {
+      ltBalance = result[i + 11].endingBalance;
     } else {
-      result[i].shortTermBalance = roundNumber(result[i].endingBalance, 2);
-      result[i].longTermBalance = 0;
+      ltBalance = 0;
     }
 
-    stBalance = 0;
-    ltBalance = 0;
+    stBalance = result[i].endingBalance - ltBalance;
+    if (i < result.length - 12) {
+      result[i].shortTermBalance = stBalance;
+      result[i].longTermBalance = ltBalance;
+    } else {
+      result[i].shortTermBalance = result[i].endingBalance;
+      result[i].longTermBalance = 0;
+    }
   }
 
   return result;
