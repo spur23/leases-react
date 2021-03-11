@@ -10,11 +10,13 @@ const App = () => {
   return (
     <div className="App">
       <Navbar />
-      <Router>
-        <HomePage path="/leases-react/" />
-        <CreateLeasePage path="/leases-react/create-lease" />
-        <PresentValueCalculatorPage path="leases-react/present-value-calculator" />
-      </Router>
+      <div className="page-container">
+        <Router>
+          <HomePage path="/leases-react/" />
+          <CreateLeasePage path="/leases-react/create-lease" />
+          <PresentValueCalculatorPage path="leases-react/present-value-calculator" />
+        </Router>
+      </div>
     </div>
   );
 };
