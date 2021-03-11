@@ -173,23 +173,6 @@ const endBalance = (
 ): number => beginningBalance + interestExpense - principal - interestPayment;
 
 /**
- * Calculates the number of payments per year based off of payment frequency
- * @param frequency
- * @returns
- */
-// const annualPayments = (frequency) => {
-//   if (frequency === PaymentFrequency.Monthly) {
-//     return 12;
-//   } else if (frequency === PaymentFrequency.Quarterly) {
-//     return 4;
-//   } else if (frequency === PaymentFrequency.SemiAnnual) {
-//     return 2;
-//   } else if (frequency === PaymentFrequency.Annual) {
-//     return 1;
-//   }
-// };
-
-/**
  * Calculates the ST and LT balances for the liability schedule
  * @param liabilitySchedule
  * @returns
