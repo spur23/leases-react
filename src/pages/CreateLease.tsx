@@ -11,6 +11,7 @@ import { FormStyled } from '../StyledForm';
 
 import './CreateLease.css';
 import { RouteComponentProps } from '@reach/router';
+import { usePayments } from '../hooks/usePayments';
 
 export enum InputTypes {
   Select = 'select',
@@ -51,9 +52,12 @@ const CreateLeasePage = (props: RouteComponentProps) => {
 
   const [values, handleChange] = useForm(leaseInitialValues);
 
-  const [payments, setPayments] = useState([
-    { startDate: '', endDate: '', frequency: 'monthly', amount: 0, min: '' }
-  ]);
+  const [
+    payments,
+    onChangePayments,
+    onClickAddPayment,
+    onClickDeletePayment
+  ] = usePayments();
 
   useEffect(() => {
     if (generatedLease.lease === '') return;
@@ -63,42 +67,6 @@ const CreateLeasePage = (props: RouteComponentProps) => {
   }, [generatedLease]);
 
   useEffect(() => {}, [values]);
-
-  const onChangePayments = (updatedPayments: []): void => {
-    setPayments(updatedPayments);
-  };
-
-  const onClickAdd = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ): void => {
-    e.preventDefault();
-    const arr = [...payments];
-    const priorEndDate = arr[arr.length - 1].endDate;
-    const newStartDate = getNextDay(priorEndDate);
-    arr.push({
-      startDate: newStartDate,
-      endDate: '',
-      frequency: 'monthly',
-      amount: 0,
-      min: newStartDate
-    });
-
-    setPayments(arr);
-  };
-
-  const onClickDelete = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ): void => {
-    e.preventDefault();
-
-    if (payments.length === 1) return;
-
-    const arr = [...payments];
-
-    arr.pop();
-
-    setPayments(arr);
-  };
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -226,8 +194,8 @@ const CreateLeasePage = (props: RouteComponentProps) => {
           <div className="payments-container">
             <Payments
               onChange={onChangePayments}
-              onClickAdd={onClickAdd}
-              onClickDelete={onClickDelete}
+              onClickAdd={onClickAddPayment}
+              onClickDelete={onClickDeletePayment}
               paymentsArr={payments}
             />
           </div>
