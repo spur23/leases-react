@@ -202,6 +202,8 @@ const calculateSTLTBalances = (liabilitySchedule) => {
   );
 
   for (let i = 0; i < result.length; i++) {
+    // long term balance is equal to the ending balance 12 months out excluding month 1
+    // outside of that lt balance is equal to 0
     if (result[i + 11]) {
       ltBalance = result[i + 11].endingBalance;
     } else {
@@ -209,6 +211,7 @@ const calculateSTLTBalances = (liabilitySchedule) => {
     }
 
     stBalance = result[i].endingBalance - ltBalance;
+
     if (i < result.length - 12) {
       result[i].shortTermBalance = stBalance;
       result[i].longTermBalance = ltBalance;
