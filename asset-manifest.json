@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/leases-react/static/css/main.1111b3cb.chunk.css",
-    "main.js": "/leases-react/static/js/main.85ae0b28.chunk.js",
-    "main.js.map": "/leases-react/static/js/main.85ae0b28.chunk.js.map",
-    "runtime-main.js": "/leases-react/static/js/runtime-main.b1ba013c.js",
-    "runtime-main.js.map": "/leases-react/static/js/runtime-main.b1ba013c.js.map",
-    "static/js/2.3ffbefe1.chunk.js": "/leases-react/static/js/2.3ffbefe1.chunk.js",
-    "static/js/2.3ffbefe1.chunk.js.map": "/leases-react/static/js/2.3ffbefe1.chunk.js.map",
+    "main.css": "/leases-react/static/css/main.ecefcd3d.chunk.css",
+    "main.js": "/leases-react/static/js/main.57f03629.chunk.js",
+    "main.js.map": "/leases-react/static/js/main.57f03629.chunk.js.map",
+    "runtime-main.js": "/leases-react/static/js/runtime-main.a1d891bd.js",
+    "runtime-main.js.map": "/leases-react/static/js/runtime-main.a1d891bd.js.map",
+    "static/js/2.9f4c7cf2.chunk.js": "/leases-react/static/js/2.9f4c7cf2.chunk.js",
+    "static/js/2.9f4c7cf2.chunk.js.map": "/leases-react/static/js/2.9f4c7cf2.chunk.js.map",
     "index.html": "/leases-react/index.html",
-    "static/css/main.1111b3cb.chunk.css.map": "/leases-react/static/css/main.1111b3cb.chunk.css.map",
-    "static/js/2.3ffbefe1.chunk.js.LICENSE.txt": "/leases-react/static/js/2.3ffbefe1.chunk.js.LICENSE.txt"
+    "static/css/main.ecefcd3d.chunk.css.map": "/leases-react/static/css/main.ecefcd3d.chunk.css.map",
+    "static/js/2.9f4c7cf2.chunk.js.LICENSE.txt": "/leases-react/static/js/2.9f4c7cf2.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.b1ba013c.js",
-    "static/js/2.3ffbefe1.chunk.js",
-    "static/css/main.1111b3cb.chunk.css",
-    "static/js/main.85ae0b28.chunk.js"
+    "static/js/runtime-main.a1d891bd.js",
+    "static/js/2.9f4c7cf2.chunk.js",
+    "static/css/main.ecefcd3d.chunk.css",
+    "static/js/main.57f03629.chunk.js"
   ]
 }

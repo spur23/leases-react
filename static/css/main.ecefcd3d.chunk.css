@@ -1,0 +1,57 @@
+body,
+html {
+  padding: 0;
+  margin: 0;
+}
+body {
+  font-family: 'Roboto', sans-serif;
+}
+.App {
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+.App,
+.schedule-container {
+  display: -webkit-flex;
+  display: flex;
+}
+.schedule-container {
+  margin: auto;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-content: center;
+  align-content: center;
+}
+.schedule-container > div {
+  width: -webkit-min-content;
+  width: min-content;
+  margin-top: none;
+  margin-right: auto;
+  margin-bottom: auto;
+  margin-left: 2rem;
+}
+.schedule-container > div > h3 {
+  text-align: center;
+}
+span {
+  -webkit-align-self: center;
+  align-self: center;
+}
+button {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background-color: #74b9ff;
+  font-size: 20px;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #6c5ce7;
+}
+/*# sourceMappingURL=main.ecefcd3d.chunk.css.map */
