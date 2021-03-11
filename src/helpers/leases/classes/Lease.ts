@@ -375,10 +375,6 @@ export class Lease implements LeaseValues {
       return { payment: month.payment, frequency: month.frequency };
     });
 
-    const correctedPaymentStream = this.correctPaymentStreamForPVCalc(
-      paymentStream
-    );
-
     const reducerFunction = this.calcPresentValue(
       this.interestRate,
       this.prepaid
@@ -411,7 +407,7 @@ export class Lease implements LeaseValues {
       currentValue: { payment: number; frequency: string },
       index: number
     ) => {
-      const { payment, frequency } = currentValue;
+      const { payment } = currentValue;
 
       const rateOfReturn = discountRate(interestRate);
 
