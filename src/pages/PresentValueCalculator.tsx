@@ -16,7 +16,7 @@ const leaseInitialValues = {
 
 const PresentValueCalculatorPage = (props: RouteComponentProps) => {
   const [presentValue, setPresentValue] = useState(0);
-
+  const [error, setError] = useState('');
   const [values, handleChange] = useForm(leaseInitialValues);
 
   const [
@@ -28,6 +28,17 @@ const PresentValueCalculatorPage = (props: RouteComponentProps) => {
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setError('');
+
+    if (payments[0].startDate === '' && payments[0].endDate === '') {
+      setError('Please enter a payment start and end date');
+
+      return;
+    } else if (payments[0].amount === 0) {
+      setError('Please enter a payment amount');
+
+      return;
+    }
 
     const leasePayments = generatePaymentStream(payments).paymentStream();
 
@@ -39,7 +50,7 @@ const PresentValueCalculatorPage = (props: RouteComponentProps) => {
     }
 
     setPresentValue(
-      calculatePresentValue(leasePayments, values.interestRate, prepaid)
+      calculatePresentValue(leasePayments, values.interestRate / 100, prepaid)
     );
   };
 
@@ -73,15 +84,19 @@ const PresentValueCalculatorPage = (props: RouteComponentProps) => {
     <StyledPresentValueCalc>
       <h4>PV Calculator</h4>
       <form onSubmit={onSubmit}>
-        {presentValue !== 0 && (
-          <p>Calculated Present Value: {formatNumberDecimal(presentValue)}</p>
-        )}
+        <div className="presentvalue-container">
+          <p>Calculated Present Value: </p>
+          <p>{formatNumberDecimal(presentValue)}</p>
+        </div>
         {inputObject.map((input, index) => (
           <div key={`${input}-${index}`} className="input-container">
             <Input config={input} />
           </div>
         ))}
         <div className="payments-container">
+          <div className="error">
+            <p>{error !== '' ? error : null}</p>
+          </div>
           <Payments
             onChange={onChangePayments}
             onClickAdd={onClickAddPayment}
