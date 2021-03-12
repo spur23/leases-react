@@ -1,9 +1,11 @@
-import { LiabilitySchedulePrint } from '../../interfaces';
-import { PaymentStream } from '../../interfaces';
-import { generateLiability } from '../../utils';
-import { LiabilityMonthly } from './LiabilityMonthly';
-import { LiabilityValues } from '../../interfaces/LiabilityValues';
-import { LeaseClassification } from '../../enums/LeaseClassification';
+import {
+  LiabilitySchedulePrint,
+  LiabilityValues,
+  PaymentStream,
+} from "../../interfaces";
+import { generateLiability } from "../../utils";
+import { LiabilityMonthly } from "./LiabilityMonthly";
+import { LeaseClassification } from "../../enums";
 
 export class Liability implements LiabilityValues {
   startDate: Date;
@@ -41,7 +43,7 @@ export class Liability implements LiabilityValues {
     this.monthlyTransactions = this.calculateMonthlySchedule();
   }
 
-  setPropertiesJSON(data, paymentStream, interestRate, life, prepaid) {
+  // setPropertiesJSON(data, paymentStream, interestRate, life, prepaid) {
     // const { date, beginningBalance, payment } = data[0];
     // this.startingBalance = beginningBalance;
     // this.startDate = new Date(date);
@@ -64,21 +66,19 @@ export class Liability implements LiabilityValues {
     //   return monthLblity;
     // });
     // this.monthlyTransactions = liabilityMonthly;
-  }
+  // }
 
   calculateMonthlySchedule(): LiabilityMonthly[] {
-    const monthlySchedule = generateLiability(
+    return generateLiability(
       this.paymentStream,
       this.startingBalance,
       this.interestRate,
       this.prepaid
     );
-
-    return monthlySchedule;
   }
 
   getLiabilityData(): LiabilitySchedulePrint[] {
-    const schedule = this.monthlyTransactions.map((month) => {
+    return this.monthlyTransactions.map((month) => {
       const {
         date,
         beginningBalance,
@@ -86,7 +86,7 @@ export class Liability implements LiabilityValues {
         interestExpense,
         endingBalance,
         shortTermBalance,
-        longTermBalance
+        longTermBalance,
       } = month.getMonthlyData();
 
       return {
@@ -96,10 +96,8 @@ export class Liability implements LiabilityValues {
         interestExpense,
         endingBalance,
         shortTermBalance,
-        longTermBalance
+        longTermBalance,
       };
     });
-
-    return schedule;
   }
 }
