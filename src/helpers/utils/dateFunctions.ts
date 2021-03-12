@@ -15,9 +15,7 @@ export const getFirstDay = (value: string): string => {
   const day = '01';
   const year = newDate.getFullYear();
 
-  const updatedDate = `${year}-${month}-${day}`;
-
-  return updatedDate;
+  return `${year}-${month}-${day}`;
 };
 
 /**
