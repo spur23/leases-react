@@ -7,7 +7,7 @@ import { GeneratedLease } from "../interfaces";
 import { useForm } from "../hooks/useForm";
 import Input from "../components/input/Input";
 import DataTable from "../components/table/DataTable";
-import { FormStyled } from "../StyledForm";
+import { StyledCreateLease } from "./StyledCreatLease";
 
 import "./CreateLease.css";
 import { RouteComponentProps } from "@reach/router";
@@ -181,29 +181,28 @@ const CreateLeasePage = (_props: RouteComponentProps) => {
   ];
 
   return (
-    <div className="App">
-      <>
-        <FormStyled onSubmit={onSubmit}>
-          <h1>Create a Lease</h1>
-          {inputObject.map((input, index) => (
-            <div key={`${input}-${index}`} className="input-container">
-              <Input config={input} />
-            </div>
-          ))}
-          <div className="payments-container">
-            <Payments
-              onChange={onChangePayments}
-              onClickAdd={onClickAddPayment}
-              onClickDelete={onClickDeletePayment}
-              paymentsArr={payments}
-            />
+    <StyledCreateLease className="create-lease-container">
+      <form onSubmit={onSubmit}>
+        <h3>Create Lease</h3>
+        {inputObject.map((input, index) => (
+          <div key={`${input}-${index}`} className="input-container">
+            <Input config={input} />
           </div>
-          <button type="submit">Create Lease</button>
-        </FormStyled>
-        {generatedLease.asset.length !== 0 ? (
-          <Download lease={leaseInfo} fileName={values.name} />
-        ) : null}
-      </>
+        ))}
+        <div className="payments-container">
+          <Payments
+            onChange={onChangePayments}
+            onClickAdd={onClickAddPayment}
+            onClickDelete={onClickDeletePayment}
+            paymentsArr={payments}
+          />
+        </div>
+        <button type="submit">Create Lease</button>
+      </form>
+      {generatedLease.asset.length !== 0 ? (
+        <Download lease={leaseInfo} fileName={values.name} />
+      ) : null}
+
       <div className="schedule-container">
         <div>
           {generatedLease.liability.length !== 0 ? (
@@ -222,7 +221,7 @@ const CreateLeasePage = (_props: RouteComponentProps) => {
           ) : null}
         </div>
       </div>
-    </div>
+    </StyledCreateLease>
   );
 };
 
