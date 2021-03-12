@@ -1,11 +1,11 @@
 html,
 body {
-  padding: 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .page-container {
@@ -27,10 +27,7 @@ body {
 
 .schedule-container > div {
   width: min-content;
-  margin-top: none;
-  margin-right: auto;
-  margin-bottom: auto;
-  margin-left: 2rem;
+  margin: 0 auto auto 2rem;
 }
 
 .schedule-container > div > h3 {
@@ -52,9 +49,7 @@ button {
   color: white;
   background-color: #74b9ff;
   font-size: 20px;
-  padding: 10px;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding: 10px 16px;
   cursor: pointer;
 }
 
