@@ -1,7 +1,7 @@
-import { PaymentStream } from '../../interfaces';
-import { monthlyCalculation } from '../../utils';
-import { Payment } from './Payment';
-import { PaymentInformation } from '../../interfaces';
+import { PaymentStream } from "../../interfaces";
+import { monthlyCalculation } from "../../utils";
+import { Payment } from "./Payment";
+import { PaymentInformation } from "../../interfaces";
 
 export class Payments {
   payments: Payment[];
@@ -46,7 +46,7 @@ export class Payments {
         arr.push({
           month: nextMonth,
           payment: monthlyPayment,
-          frequency: frequency
+          frequency: frequency,
         });
       }
     }
