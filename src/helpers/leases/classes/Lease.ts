@@ -12,18 +12,18 @@ import { PaymentInformation } from "../interfaces";
 import { PaymentStream } from "../interfaces";
 import { calculatePresentValue } from "../../utils";
 
-interface LeaseInformation {
-  lease: string;
-  prepaid: boolean;
-  description: string;
-  classification: string;
-  interestRate: number;
-  totalPayments: number;
-  quantityOfPayments: number;
-  presentValue: number;
-  startDate: string;
-  endDate: string;
-}
+// interface LeaseInformation {
+//   lease: string;
+//   prepaid: boolean;
+//   description: string;
+//   classification: string;
+//   interestRate: number;
+//   totalPayments: number;
+//   quantityOfPayments: number;
+//   presentValue: number;
+//   startDate: string;
+//   endDate: string;
+// }
 
 interface AllLeaseInformation {
   lease: string;
@@ -281,20 +281,20 @@ export class Lease implements LeaseValues {
   /**
    * gets the lease data
    */
-  getLeaseInformation(): LeaseInformation {
-    return {
-      lease: this.name,
-      prepaid: this.prepaid,
-      description: this.description,
-      classification: this.classification,
-      interestRate: this.interestRate,
-      totalPayments: this.totalPayments,
-      quantityOfPayments: this.quantityOfPayments,
-      presentValue: this.presentValue,
-      startDate: this.startDate,
-      endDate: this.endDate,
-    };
-  }
+  // getLeaseInformation(): LeaseInformation {
+  //   return {
+  //     lease: this.name,
+  //     prepaid: this.prepaid,
+  //     description: this.description,
+  //     classification: this.classification,
+  //     interestRate: this.interestRate,
+  //     totalPayments: this.totalPayments,
+  //     quantityOfPayments: this.quantityOfPayments,
+  //     presentValue: this.presentValue,
+  //     startDate: this.startDate,
+  //     endDate: this.endDate,
+  //   };
+  // }
 
   /**
    * gets all of the lease data
