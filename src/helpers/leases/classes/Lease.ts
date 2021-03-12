@@ -349,7 +349,7 @@ export class Lease implements LeaseValues {
   }
 
   /**
-   * gets the quantitiy of payments
+   * gets the quantity of payments
    */
   getQuantityOfPayments(): number {
     return this.payments.quantityOfPayments();
