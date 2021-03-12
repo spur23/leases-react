@@ -9,7 +9,6 @@ import Input from "../components/input/Input";
 import DataTable from "../components/table/DataTable";
 import { StyledCreateLease } from "./StyledCreatLease";
 
-import "./CreateLease.css";
 import { RouteComponentProps } from "@reach/router";
 import { usePayments } from "../hooks/usePayments";
 
@@ -182,8 +181,8 @@ const CreateLeasePage = (_props: RouteComponentProps) => {
 
   return (
     <StyledCreateLease className="create-lease-container">
+      <h3>Create Lease</h3>
       <form onSubmit={onSubmit}>
-        <h3>Create Lease</h3>
         {inputObject.map((input, index) => (
           <div key={`${input}-${index}`} className="input-container">
             <Input config={input} />
