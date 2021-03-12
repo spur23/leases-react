@@ -1,10 +1,18 @@
-import { AssetMonthly } from '../classes/Asset/AssetMonthly';
-import { LeaseClassification } from '../enums';
-import { AssetCalculationObject } from '../interfaces';
-import { addMonth } from './addMonth';
+import { AssetMonthly } from "../classes/Asset/AssetMonthly";
+import { LeaseClassification } from "../enums";
+import { LiabilitySchedulePrint } from "../interfaces";
+import { addMonth } from "./addMonth";
 
 const calculateAssetSchedule = (
-  data: AssetCalculationObject,
+  data: {
+    liabilitySchedule?: LiabilitySchedulePrint[];
+    totalPayments?: number;
+    classification: LeaseClassification;
+    startDate: Date;
+    life: number;
+    startingBalance: number;
+    monthlyDepreciation?: number;
+  },
   straightLineRent?
 ) => {
   const {
@@ -13,7 +21,7 @@ const calculateAssetSchedule = (
     startingBalance,
     monthlyDepreciation,
     liabilitySchedule,
-    classification
+    classification,
   } = data;
 
   let result = [];
