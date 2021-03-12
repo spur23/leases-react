@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const FormStyled = styled.form`
   font-family: inherit;
@@ -11,8 +11,7 @@ const FormStyled = styled.form`
   h1 {
     text-align: center;
     border-bottom: 1px solid black;
-    margin: 0;
-    margin-bottom: 1rem;
+    margin: 0 0 1rem;
     background-color: #2ecc71;
     background-size: 100% 100%;
     color: white;
@@ -29,9 +28,8 @@ const FormStyled = styled.form`
 
   .payments-container {
     width: 75%;
-    margin: auto;
     display: flex;
-    margin-top: 1rem;
+    margin: 1rem auto auto;
     flex-direction: column;
   }
 
@@ -62,7 +60,7 @@ const FormStyled = styled.form`
     background: #55efc4;
   }
 
-  input[type='number'] {
+  input[type="number"] {
     -moz-appearance: textfield;
   }
 
@@ -77,9 +75,7 @@ const FormStyled = styled.form`
     color: white;
     background-color: #2ecc71;
     font-size: 14px;
-    padding: 10px;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding: 10px 16px;
     cursor: pointer;
   }
 
@@ -87,15 +83,12 @@ const FormStyled = styled.form`
     background-color: #81ecec;
   }
 
-  button[type='submit'] {
-    margin: auto;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+  button[type="submit"] {
+    margin: 1rem auto;
   }
 
   @media (min-width: 40rem) {
-    margin: auto;
-    margin-top: 2.5rem;
+    margin: 2.5rem auto auto;
     width: 40rem;
   }
 `;
