@@ -1,6 +1,6 @@
 import { RouteComponentProps } from '@reach/router';
 
-const HomePage = (props: RouteComponentProps) => {
+const HomePage = (_props: RouteComponentProps) => {
   return <div>Home Page</div>;
 };
 
