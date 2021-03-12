@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { getNextDay } from '../helpers/utils';
+import React, { useState } from "react";
+import { getNextDay } from "../helpers/utils";
 
 export const usePayments = () => {
   const [payments, setPayments] = useState([
-    { startDate: '', endDate: '', frequency: 'monthly', amount: 0, min: '' }
+    { startDate: "", endDate: "", frequency: "monthly", amount: 0, min: "" },
   ]);
 
   const onChangePayments = (updatedPayments: []): void => {
@@ -21,10 +21,10 @@ export const usePayments = () => {
 
     arr.push({
       startDate: newStartDate,
-      endDate: '',
-      frequency: 'monthly',
+      endDate: "",
+      frequency: "monthly",
       amount: 0,
-      min: newStartDate
+      min: newStartDate,
     });
 
     setPayments(arr);
