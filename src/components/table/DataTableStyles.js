@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const DataTableStyled = styled.table`
   border-collapse: collapse;
@@ -10,12 +10,11 @@ const DataTableStyled = styled.table`
   tr {
     background: #f7f9f9;
   }
+
   td {
     vertical-align: bottom;
     text-align: center;
-    padding: 2rem;
-    padding-bottom: 0.5rem;
-    padding-top: 0.5rem;
+    padding: 0.5rem 2rem;
   }
 
   th {
