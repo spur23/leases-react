@@ -1,7 +1,7 @@
-import { LeaseClassification } from '../../enums';
-import { LiabilitySchedule } from '../../interfaces';
-import { calculateAssetSchedule } from '../../utils';
-import { AssetBase } from './AssetBase';
+import { LeaseClassification } from "../../enums";
+import { LiabilitySchedulePrint } from "../../interfaces";
+import { calculateAssetSchedule } from "../../utils";
+import { AssetBase } from "./AssetBase";
 
 export class AssetOperating extends AssetBase {
   private straightLineRent: number;
@@ -13,7 +13,7 @@ export class AssetOperating extends AssetBase {
     leaseIncentive: number,
     initialDirectCosts: number,
     life: number,
-    liabilitySchedule: LiabilitySchedule[]
+    liabilitySchedule: LiabilitySchedulePrint[]
   ): void {
     // beginning balance is equal to PV less deferred rent less lease incentives plus initial direct costs
     const beginningBalance =
@@ -31,7 +31,7 @@ export class AssetOperating extends AssetBase {
   }
 
   calculateMonthlySchedule(
-    liabilitySchedule: LiabilitySchedule[],
+    liabilitySchedule: LiabilitySchedulePrint[],
     leaseIncentive: number,
     deferredRent: number,
     initialDirectCosts: number
@@ -52,15 +52,10 @@ export class AssetOperating extends AssetBase {
         startingBalance,
         liabilitySchedule,
         totalPayments,
-        classification: LeaseClassification.OPERATING
+        classification: LeaseClassification.OPERATING,
       };
 
-      const assetSchedule = calculateAssetSchedule(
-        assetData,
-        this.straightLineRent
-      );
-
-      return assetSchedule;
+      return calculateAssetSchedule(assetData, this.straightLineRent);
     };
   }
 }
