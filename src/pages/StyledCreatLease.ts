@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledCreateLease = styled.form`
+const StyledCreateLease = styled.div`
   font-family: inherit;
   display: flex;
   flex-direction: column;
