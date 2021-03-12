@@ -1,9 +1,8 @@
-import { Leases } from './classes/Leases';
-import { Lease } from './classes/Lease';
-import { Payment } from './classes/Payments/Payment';
-import { Payments } from './classes/Payments/Payments';
-import { LeaseClassification } from './enums/LeaseClassification';
-import { PaymentFrequency } from './enums/PaymentFrequency';
+import { Leases } from "./classes/Leases";
+import { Lease } from "./classes/Lease";
+import { Payment } from "./classes/Payments/Payment";
+import { Payments } from "./classes/Payments/Payments";
+import { PaymentFrequency, LeaseClassification } from "./enums";
 
 export {
   Leases,
@@ -11,5 +10,5 @@ export {
   Payment,
   Payments,
   LeaseClassification,
-  PaymentFrequency
+  PaymentFrequency,
 };

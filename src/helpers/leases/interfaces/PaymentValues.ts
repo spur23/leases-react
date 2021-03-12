@@ -1,4 +1,4 @@
-import { PaymentFrequency } from '../enums/PaymentFrequency';
+import { PaymentFrequency } from "../enums";
 
 export interface PaymentValues {
   payment: number;
