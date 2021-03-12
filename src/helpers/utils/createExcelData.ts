@@ -1,6 +1,6 @@
-import { GeneratedLease } from '../../interfaces';
-import { capitalizeFirstLetter } from './index';
-import { formatNumberPercent } from './formatting';
+import { GeneratedLease } from "../../interfaces";
+import { capitalizeFirstLetter } from "./index";
+import { formatNumberPercent } from "./formatting";
 
 export const createExcelData = (lease: GeneratedLease): any[] => {
   const obj = { ...lease };
@@ -9,7 +9,7 @@ export const createExcelData = (lease: GeneratedLease): any[] => {
     month.date,
     month.beginningBalance,
     month.depreciation,
-    month.endingBalance
+    month.endingBalance,
   ]);
 
   const liabilitySchedule = obj.liability.map((month) => [
@@ -21,54 +21,52 @@ export const createExcelData = (lease: GeneratedLease): any[] => {
     month.principal,
     month.endingBalance,
     month.shortTermBalance,
-    month.longTermBalance
+    month.longTermBalance,
   ]);
 
-  const result = [
+  return [
     {
-      columns: [''],
+      columns: [""],
       data: [
-        ['Name: ', capitalizeFirstLetter(obj.lease)],
-        ['Description: ', capitalizeFirstLetter(obj.description)],
-        ['Classificatoin: ', capitalizeFirstLetter(obj.classification)],
-        ['Prepaid', obj.prepaid],
-        ['Discount Rate: ', formatNumberPercent(obj.interestRate)],
-        ['Total Payments: ', obj.totalPayments],
-        ['Present Value: ', obj.presentValue],
-        ['Start Date: ', obj.startDate],
-        ['End Date: ', obj.endDate]
-      ]
+        ["Name: ", capitalizeFirstLetter(obj.lease)],
+        ["Description: ", capitalizeFirstLetter(obj.description)],
+        ["Classification: ", capitalizeFirstLetter(obj.classification)],
+        ["Prepaid", obj.prepaid],
+        ["Discount Rate: ", formatNumberPercent(obj.interestRate)],
+        ["Total Payments: ", obj.totalPayments],
+        ["Present Value: ", obj.presentValue],
+        ["Start Date: ", obj.startDate],
+        ["End Date: ", obj.endDate],
+      ],
     },
-    { ySteps: 5, columns: ['Asset Schedule'], data: [['']] },
+    { ySteps: 5, columns: ["Asset Schedule"], data: [[""]] },
     {
       // xSteps: 1, // Will start putting cell with 1 empty cell on left most
       ySteps: -1, //will put space of 5 rows,
-      columns: ['Date', 'Beginning Balance', 'Depreciation', 'Ending Balance'],
-      data: assetSchedule
+      columns: ["Date", "Beginning Balance", "Depreciation", "Ending Balance"],
+      data: assetSchedule,
     },
     {
       ySteps: -assetSchedule.length - 2,
       xSteps: 6,
-      columns: ['Liability Schedule'],
-      data: [['']]
+      columns: ["Liability Schedule"],
+      data: [[""]],
     },
     {
       ySteps: -1,
       xSteps: 6,
       columns: [
-        'Date',
-        'Beginning Balance',
-        'Payment',
-        'Interest Expense',
-        'Interest Payment',
-        'Principal',
-        'Ending Balance',
-        'Short Term Balance',
-        'Long Term Balance'
+        "Date",
+        "Beginning Balance",
+        "Payment",
+        "Interest Expense",
+        "Interest Payment",
+        "Principal",
+        "Ending Balance",
+        "Short Term Balance",
+        "Long Term Balance",
       ],
-      data: liabilitySchedule
-    }
+      data: liabilitySchedule,
+    },
   ];
-
-  return result;
 };
