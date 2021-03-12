@@ -1,4 +1,4 @@
-import { roundNumber } from '../../utils/index';
+import { roundNumber } from "../../utils";
 
 export class AssetMonthly {
   public endingBalance: number;
@@ -22,7 +22,7 @@ export class AssetMonthly {
       date: this.date,
       beginningBalance: this.beginningBalance,
       depreciation: this.depreciation,
-      endingBalance: this.endingBalance
+      endingBalance: this.endingBalance,
     };
   }
 }
