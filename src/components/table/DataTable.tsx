@@ -11,7 +11,7 @@ interface Config {
  * @returns
  */
 const createTableRows = (dataArray: {}[]) => (
-  <StyledDataTable>
+  <tbody>
     {dataArray.map((row, index) => (
       <tr key={`${row}-${index}`}>
         {Object.keys(row).map((key) => {
@@ -28,7 +28,7 @@ const createTableRows = (dataArray: {}[]) => (
         })}
       </tr>
     ))}
-  </StyledDataTable>
+  </tbody>
 );
 
 /**
