@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/leases-react/static/css/main.ecefcd3d.chunk.css",
-    "main.js": "/leases-react/static/js/main.ac9e8c24.chunk.js",
-    "main.js.map": "/leases-react/static/js/main.ac9e8c24.chunk.js.map",
+    "main.css": "/leases-react/static/css/main.b5774f02.chunk.css",
+    "main.js": "/leases-react/static/js/main.579fc632.chunk.js",
+    "main.js.map": "/leases-react/static/js/main.579fc632.chunk.js.map",
     "runtime-main.js": "/leases-react/static/js/runtime-main.a1d891bd.js",
     "runtime-main.js.map": "/leases-react/static/js/runtime-main.a1d891bd.js.map",
-    "static/js/2.9f4c7cf2.chunk.js": "/leases-react/static/js/2.9f4c7cf2.chunk.js",
-    "static/js/2.9f4c7cf2.chunk.js.map": "/leases-react/static/js/2.9f4c7cf2.chunk.js.map",
+    "static/js/2.ce435751.chunk.js": "/leases-react/static/js/2.ce435751.chunk.js",
+    "static/js/2.ce435751.chunk.js.map": "/leases-react/static/js/2.ce435751.chunk.js.map",
     "index.html": "/leases-react/index.html",
-    "static/css/main.ecefcd3d.chunk.css.map": "/leases-react/static/css/main.ecefcd3d.chunk.css.map",
-    "static/js/2.9f4c7cf2.chunk.js.LICENSE.txt": "/leases-react/static/js/2.9f4c7cf2.chunk.js.LICENSE.txt"
+    "static/css/main.b5774f02.chunk.css.map": "/leases-react/static/css/main.b5774f02.chunk.css.map",
+    "static/js/2.ce435751.chunk.js.LICENSE.txt": "/leases-react/static/js/2.ce435751.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.a1d891bd.js",
-    "static/js/2.9f4c7cf2.chunk.js",
-    "static/css/main.ecefcd3d.chunk.css",
-    "static/js/main.ac9e8c24.chunk.js"
+    "static/js/2.ce435751.chunk.js",
+    "static/css/main.b5774f02.chunk.css",
+    "static/js/main.579fc632.chunk.js"
   ]
 }
