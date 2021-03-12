@@ -1,12 +1,12 @@
-import { formatDate } from '.';
+import { formatDate } from ".";
 import {
   Lease,
   LeaseClassification,
   Payment,
   PaymentFrequency,
-  Payments
-} from '../leases';
-import { LeaseType } from '../../hooks/useForm';
+  Payments,
+} from "../leases";
+import { LeaseType } from "../../hooks/useForm";
 
 export const generatePaymentStream = (payments): Payments => {
   const paymentStream = payments.map((el) => {
@@ -17,15 +17,15 @@ export const generatePaymentStream = (payments): Payments => {
     return new Payment({
       payment: amount,
       frequency:
-        frequency === 'monthly'
+        frequency === "monthly"
           ? PaymentFrequency.Monthly
-          : frequency === 'quarterly'
+          : frequency === "quarterly"
           ? PaymentFrequency.Quarterly
-          : frequency === 'semiAnnual'
+          : frequency === "semiAnnual"
           ? PaymentFrequency.SemiAnnual
           : PaymentFrequency.Annual,
       startDate: stDate,
-      endDate: edDate
+      endDate: edDate,
     });
   });
 
@@ -40,7 +40,7 @@ export const createLease = (payments, leaseInfo: LeaseType) => {
     deferredRent,
     leaseIncentive,
     initialDirectCosts,
-    economicLife
+    economicLife,
   } = leaseInfo;
 
   const leasePayments = generatePaymentStream(payments);
@@ -48,12 +48,12 @@ export const createLease = (payments, leaseInfo: LeaseType) => {
   const lease = new Lease();
 
   const leaseClassification =
-    leaseInfo.classification === 'operating'
+    leaseInfo.classification === "operating"
       ? LeaseClassification.OPERATING
       : LeaseClassification.FINANCE;
 
-  const prepaid = leaseInfo.prepaid === 'true' ? true : false;
-  const useEconomicLife = leaseInfo.useEconomicLife === 'true' ? true : false;
+  const prepaid = leaseInfo.prepaid === "true";
+  const useEconomicLife = leaseInfo.useEconomicLife === "true";
 
   lease.setProperties(
     name,
