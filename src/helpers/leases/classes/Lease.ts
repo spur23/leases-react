@@ -1,16 +1,16 @@
-import { LeaseClassification } from '../enums';
-import { AssetFinance } from './Asset/AssetFinance';
-import { AssetOperating } from './Asset/AssetOperating';
-import { Liability } from './Liability/Liability';
-import { Payment } from './Payments/Payment';
-import { LeaseValues } from '../interfaces/LeaseValues';
-import { PaymentFrequency } from '../enums';
-import { Payments } from './Payments/Payments';
-import { AssetSchedulePrint } from '../interfaces/AssetSchedulePrint';
-import { LiabilitySchedulePrint } from '../interfaces/LiabilitySchedulePrint';
-import { PaymentInformation } from '../interfaces/PaymentInformation';
-import { PaymentStream } from '../interfaces/PaymentStream';
-import { discountRate } from '../../utils/discountRate';
+import { LeaseClassification } from "../enums";
+import { AssetFinance } from "./Asset/AssetFinance";
+import { AssetOperating } from "./Asset/AssetOperating";
+import { Liability } from "./Liability/Liability";
+import { Payment } from "./Payments/Payment";
+import { LeaseValues } from "../interfaces";
+import { PaymentFrequency } from "../enums";
+import { Payments } from "./Payments/Payments";
+import { AssetSchedulePrint } from "../interfaces";
+import { LiabilitySchedulePrint } from "../interfaces";
+import { PaymentInformation } from "../interfaces";
+import { PaymentStream } from "../interfaces";
+import { calculatePresentValue } from "../../utils";
 
 interface LeaseInformation {
   lease: string;
@@ -84,13 +84,13 @@ export class Lease implements LeaseValues {
   economicLife: number;
 
   constructor() {
-    this.name = '';
-    this.description = '';
+    this.name = "";
+    this.description = "";
     this.totalPayments = 0;
     this.quantityOfPayments = 0;
     this.presentValue = 0;
-    this.startDate = '';
-    this.endDate = '';
+    this.startDate = "";
+    this.endDate = "";
     this.interestRate = 0;
     this.prepaid = false;
   }
@@ -123,16 +123,11 @@ export class Lease implements LeaseValues {
     this.economicLife = economicLife;
 
     // create and sort the payments array to get the start and end dates of the lease
-    const paymentsArray = this.payments
-      .paymentInformation()
-      .sort(
-        (a, b) =>
-          new Date(a.startDate).valueOf() - new Date(b.startDate).valueOf()
-      );
+    const [startDate, endDate, paymentStream] = this.getPaymentsArray();
 
-    this.startDate = paymentsArray[0].startDate;
-    this.endDate = paymentsArray[paymentsArray.length - 1].endDate;
-    this.paymentStream = this.getPaymentStream();
+    this.startDate = startDate;
+    this.endDate = endDate;
+    this.paymentStream = paymentStream;
 
     this.presentValue = this.calculatePresentValue();
 
@@ -179,7 +174,7 @@ export class Lease implements LeaseValues {
       );
     } else {
       throw new Error(
-        'Lease must be classified as either an operating or finance'
+        "Lease must be classified as either an operating or finance"
       );
     }
   }
@@ -193,21 +188,21 @@ export class Lease implements LeaseValues {
       interestRate,
       payments,
       asset,
-      liability
+      liability,
     } = data;
 
     const leaseClassification =
-      classification === 'operating'
+      classification === "operating"
         ? LeaseClassification.OPERATING
         : LeaseClassification.FINANCE;
 
     const paymentArray = payments.map((el) => {
       let frequency;
-      if (el.frequency === 'annual') {
+      if (el.frequency === "annual") {
         frequency = PaymentFrequency.Annual;
-      } else if (el.frequency === 'semiannual') {
+      } else if (el.frequency === "semiannual") {
         frequency = PaymentFrequency.SemiAnnual;
-      } else if (el.frequency === 'quarterly') {
+      } else if (el.frequency === "quarterly") {
         frequency = PaymentFrequency.Quarterly;
       } else {
         frequency = PaymentFrequency.Monthly;
@@ -216,7 +211,7 @@ export class Lease implements LeaseValues {
         payment: el.payment,
         frequency: frequency,
         startDate: new Date(el.startDate).toLocaleDateString(),
-        endDate: new Date(el.endDate).toLocaleDateString()
+        endDate: new Date(el.endDate).toLocaleDateString(),
       });
     });
 
@@ -231,16 +226,11 @@ export class Lease implements LeaseValues {
     this.totalPayments = this.getSumOfPayments();
     this.quantityOfPayments = this.getQuantityOfPayments();
 
-    const paymentsArray = this.payments
-      .paymentInformation()
-      .sort(
-        (a, b) =>
-          new Date(a.startDate).valueOf() - new Date(b.startDate).valueOf()
-      );
+    const [startDate, endDate, paymentStream] = this.getPaymentsArray();
 
-    this.startDate = paymentsArray[0].startDate;
-    this.endDate = paymentsArray[paymentsArray.length - 1].endDate;
-    this.paymentStream = this.getPaymentStream();
+    this.startDate = startDate;
+    this.endDate = endDate;
+    this.paymentStream = paymentStream;
 
     this.liability = new Liability();
     this.liability.setPropertiesJSON(
@@ -260,11 +250,26 @@ export class Lease implements LeaseValues {
       this.asset.setPropertiesFromJSON(asset);
     } else {
       throw new Error(
-        'Lease must be classified as either an operating or finance'
+        "Lease must be classified as either an operating or finance"
       );
     }
 
     this.presentValue = this.liability.getLiabilityData()[0].beginningBalance;
+  }
+
+  getPaymentsArray(): [string, string, PaymentStream[]] {
+    const paymentsArray = this.payments
+      .paymentInformation()
+      .sort(
+        (a, b) =>
+          new Date(a.startDate).valueOf() - new Date(b.startDate).valueOf()
+      );
+
+    const startDate = paymentsArray[0].startDate;
+    const endDate = paymentsArray[paymentsArray.length - 1].endDate;
+    const paymentStream = this.getPaymentStream();
+
+    return [startDate, endDate, paymentStream];
   }
 
   /**
@@ -287,7 +292,7 @@ export class Lease implements LeaseValues {
       quantityOfPayments: this.quantityOfPayments,
       presentValue: this.presentValue,
       startDate: this.startDate,
-      endDate: this.endDate
+      endDate: this.endDate,
     };
   }
 
@@ -308,7 +313,7 @@ export class Lease implements LeaseValues {
       endDate: this.endDate,
       payments: this.getPayments(),
       asset: this.getAssetSchedule(),
-      liability: this.getLiabilitySchedule()
+      liability: this.getLiabilitySchedule(),
     };
   }
 
@@ -331,8 +336,8 @@ export class Lease implements LeaseValues {
       lease: this.name,
       schedules: {
         asset,
-        liability
-      }
+        liability,
+      },
     };
   }
 
@@ -375,47 +380,10 @@ export class Lease implements LeaseValues {
       return { payment: month.payment, frequency: month.frequency };
     });
 
-    const reducerFunction = this.calcPresentValue(
+    return calculatePresentValue(
+      paymentStream,
       this.interestRate,
       this.prepaid
     );
-
-    return paymentStream.reduce(reducerFunction, 0);
-  }
-
-  /**
-   * corrects the payment stream due to payment frequency
-   * @param paymentStream
-   * @returns
-   */
-  private correctPaymentStreamForPVCalc(
-    paymentStream: { payment: number; frequency: string }[]
-  ) {
-    return paymentStream.filter((payment) => payment.payment !== 0);
-  }
-
-  /**
-   * Generates the reducer function for PV calculation
-   * @param interestRate
-   * @returns
-   */
-  private calcPresentValue(interestRate: number, prepaid: boolean) {
-    return (
-      accumulator: number,
-      currentValue: { payment: number; frequency: string },
-      index: number
-    ) => {
-      const { payment } = currentValue;
-
-      const rateOfReturn = discountRate(interestRate);
-
-      if (prepaid) {
-        if (index === 0) return payment;
-
-        return accumulator + payment / Math.pow(1 + rateOfReturn, index);
-      } else {
-        return accumulator + payment / Math.pow(1 + rateOfReturn, index + 1);
-      }
-    };
   }
 }
