@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const StyledPresentValueCalc = styled.div`
   display: flex;
@@ -43,7 +43,7 @@ const StyledPresentValueCalc = styled.div`
   }
 
   .error {
-    margin: none;
+    margin: 0;
   }
 
   .input-container,
@@ -52,7 +52,7 @@ const StyledPresentValueCalc = styled.div`
   }
 
   .payments-container > p {
-    margin: none;
+    margin: 0;
   }
 
   .presentvalue-container {
