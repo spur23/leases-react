@@ -3,7 +3,7 @@
  * @param value
  */
 export const getFirstDay = (value: string): string => {
-  const dateArr = value.split('-');
+  const dateArr = value.split("-");
   const newDate = new Date(
     Number(dateArr[0]),
     Number(dateArr[1]) - 1,
@@ -12,7 +12,7 @@ export const getFirstDay = (value: string): string => {
 
   const month = monthCorrection(newDate.getMonth());
 
-  const day = '01';
+  const day = "01";
   const year = newDate.getFullYear();
 
   return `${year}-${month}-${day}`;
@@ -23,7 +23,7 @@ export const getFirstDay = (value: string): string => {
  * @param value
  */
 export const getLastDay = (value: string): string => {
-  const dateArr = value.split('-');
+  const dateArr = value.split("-");
   const date = new Date(
     Number(dateArr[0]),
     Number(dateArr[1]) - 1,
@@ -43,7 +43,7 @@ export const getLastDay = (value: string): string => {
 
 export const getNextDay = (value: string): string => {
   const date = new Date(value);
-  const day = '01';
+  const day = "01";
   const newDate = new Date(date.getFullYear(), date.getMonth() + 1, 1);
   const month = monthCorrection(newDate.getMonth());
   return `${newDate.getFullYear()}-${month}-${day}`;
