@@ -12,10 +12,7 @@
 
 .schedule-container > div {
   width: min-content;
-  margin-top: none;
-  margin-right: auto;
-  margin-bottom: auto;
-  margin-left: 2rem;
+  margin: 0 auto auto 2rem;
 }
 
 .schedule-container > div > h3 {
@@ -24,23 +21,6 @@
 
 span {
   align-self: center;
-}
-
-button {
-  display: block;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 10px;
-  border: none;
-  text-align: center;
-  text-decoration: none;
-  color: white;
-  background-color: #74b9ff;
-  font-size: 20px;
-  padding: 10px;
-  padding-left: 16px;
-  padding-right: 16px;
-  cursor: pointer;
 }
 
 button:hover {
