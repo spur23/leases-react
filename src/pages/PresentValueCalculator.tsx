@@ -1,41 +1,41 @@
-import { RouteComponentProps } from '@reach/router';
-import Payments from '../components/Payments';
-import { usePayments } from '../hooks/usePayments';
-import { useState } from 'react';
-import { generatePaymentStream } from '../helpers/utils/createLease';
-import { InputTypes } from './CreateLease';
-import { useForm } from '../hooks/useForm';
-import Input from '../components/input/Input';
-import { calculatePresentValue, formatNumberDecimal } from '../helpers/utils';
-import StyledPresentValueCalc from './StyledPresentValueCalc';
+import { RouteComponentProps } from "@reach/router";
+import Payments from "../components/Payments";
+import { usePayments } from "../hooks/usePayments";
+import { useState } from "react";
+import { generatePaymentStream } from "../helpers/utils";
+import { InputTypes } from "./CreateLease";
+import { useForm } from "../hooks/useForm";
+import Input from "../components/input/Input";
+import { calculatePresentValue, formatNumberDecimal } from "../helpers/utils";
+import StyledPresentValueCalc from "./StyledPresentValueCalc";
 
 const leaseInitialValues = {
-  prepaid: 'true',
-  interestRate: 0
+  prepaid: "true",
+  interestRate: 0,
 };
 
 const PresentValueCalculatorPage = (props: RouteComponentProps) => {
   const [presentValue, setPresentValue] = useState(0);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [values, handleChange] = useForm(leaseInitialValues);
 
   const [
     payments,
     onChangePayments,
     onClickAddPayment,
-    onClickDeletePayment
+    onClickDeletePayment,
   ] = usePayments();
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setError('');
+    setError("");
 
-    if (payments[0].startDate === '' && payments[0].endDate === '') {
-      setError('Please enter a payment start and end date');
+    if (payments[0].startDate === "" && payments[0].endDate === "") {
+      setError("Please enter a payment start and end date");
 
       return;
     } else if (payments[0].amount === 0) {
-      setError('Please enter a payment amount');
+      setError("Please enter a payment amount");
 
       return;
     }
@@ -43,11 +43,7 @@ const PresentValueCalculatorPage = (props: RouteComponentProps) => {
     const leasePayments = generatePaymentStream(payments).paymentStream();
 
     let prepaid: boolean;
-    if (values.prepaid === 'true') {
-      prepaid = true;
-    } else {
-      prepaid = false;
-    }
+    prepaid = values.prepaid === "true";
 
     setPresentValue(
       calculatePresentValue(leasePayments, values.interestRate / 100, prepaid)
@@ -56,28 +52,28 @@ const PresentValueCalculatorPage = (props: RouteComponentProps) => {
 
   const inputObject = [
     {
-      label: 'Prepaid:',
+      label: "Prepaid:",
       type: InputTypes.Select,
-      name: 'prepaid',
-      id: 'prepaid',
+      name: "prepaid",
+      id: "prepaid",
       value: values.prepaid,
       onChange: handleChange,
       options: [
-        { text: 'Yes', value: 'true' },
-        { text: 'No', value: 'false' }
+        { text: "Yes", value: "true" },
+        { text: "No", value: "false" },
       ],
-      required: true
+      required: true,
     },
 
     {
-      label: 'Interest Rate:',
+      label: "Interest Rate:",
       type: InputTypes.Number,
-      name: 'interestRate',
-      id: 'interestRate',
+      name: "interestRate",
+      id: "interestRate",
       value: values.interestRate,
       onChange: handleChange,
-      required: true
-    }
+      required: true,
+    },
   ];
 
   return (
@@ -95,7 +91,7 @@ const PresentValueCalculatorPage = (props: RouteComponentProps) => {
         ))}
         <div className="payments-container">
           <div className="error">
-            <p>{error !== '' ? error : null}</p>
+            <p>{error !== "" ? error : null}</p>
           </div>
           <Payments
             onChange={onChangePayments}
