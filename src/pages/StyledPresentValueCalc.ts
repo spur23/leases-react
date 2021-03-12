@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const StyledPresentValueCalc = styled.div`
+  font-family: inherit;
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -64,7 +65,6 @@ const StyledPresentValueCalc = styled.div`
   .payments-container > table > tbody > tr > td > select {
     width: 8rem;
     padding: 0;
-    border: 1px solid #dfe6e9;
   }
 
   .payments-container > div,
@@ -76,12 +76,19 @@ const StyledPresentValueCalc = styled.div`
   .submit-button-container > button {
     margin-left: 1rem;
     font-size: 16px;
-    background-color: #0984e3;
+    background-color: #3498db;
     width: 8.5rem;
   }
-
-  .payments-container > div > button:hover {
+  .payments-container > div > button:hover,
+  .form-submit:hover {
     background-color: #74b9ff;
+  }
+
+  button[type="submit"] {
+    margin: 2rem auto;
+    padding: 0.25rem 0.5rem;
+    font-weight: normal;
+    font-size: 18px;
   }
 `;
 

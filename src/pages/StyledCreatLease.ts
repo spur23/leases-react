@@ -1,25 +1,20 @@
 import styled from "styled-components";
 
-const FormStyled = styled.form`
+const StyledCreateLease = styled.form`
   font-family: inherit;
-  border: thin solid lightgrey;
-  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
-  max-width: 50rem;
-  box-sizing: border-box;
-  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 50%;
 
-  h1 {
-    text-align: center;
-    border-bottom: 1px solid black;
+  h3 {
     margin: 0 0 1rem;
-    background-color: #2ecc71;
     background-size: 100% 100%;
-    color: white;
+    color: black;
     padding-bottom: 1rem;
   }
 
   .input-container {
-    width: 75%;
     margin: auto;
     display: flex;
     flex-direction: row;
@@ -50,8 +45,10 @@ const FormStyled = styled.form`
 
   input,
   select {
-    border: 1px solid grey;
-    border-radius: 4px;
+    border-bottom: 1px solid grey;
+    border-top: none;
+    border-right: none;
+    border-left: none;
     text-align: right;
   }
 
@@ -65,26 +62,23 @@ const FormStyled = styled.form`
   }
 
   button {
-    display: block;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    border-radius: 10px;
-    border: none;
-    text-align: center;
-    text-decoration: none;
-    color: white;
-    background-color: #2ecc71;
-    font-size: 14px;
-    padding: 10px 16px;
-    cursor: pointer;
-  }
-
-  button:hover {
-    background-color: #81ecec;
+    padding: 0.25rem;
+    font-family: inherit;
+    margin-left: 1rem;
+    font-size: 16px;
+    background-color: #3498db;
+    width: 8.5rem;
   }
 
   button[type="submit"] {
-    margin: 1rem auto;
+    margin: 2rem auto;
+    padding: 0.25rem 0.5rem;
+    font-weight: normal;
+    font-size: 18px;
+  }
+
+  button:hover {
+    background-color: #74b9ff;
   }
 
   @media (min-width: 40rem) {
@@ -93,4 +87,4 @@ const FormStyled = styled.form`
   }
 `;
 
-export { FormStyled };
+export { StyledCreateLease };

@@ -1,6 +1,8 @@
-.App {
+.create-lease-container {
   display: flex;
   flex-direction: column;
+  width: 50%;
+  margin: auto;
 }
 
 .schedule-container {
@@ -21,8 +23,4 @@
 
 span {
   align-self: center;
-}
-
-button:hover {
-  background-color: #6c5ce7;
 }

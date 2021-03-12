@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html,
 body {
   padding: 0;
@@ -8,6 +14,25 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+select {
+  /*A reset of styles, including removing the default dropdown arrow*/
+  appearance: none;
+  /*Additional resets for further consistency*/
+  background-color: transparent;
+  border: none;
+  padding: 0 1em 0 0;
+  margin: 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  outline: none;
+  cursor: pointer;
+}
+
+select::-ms-expand {
+  display: none;
+}
 .page-container {
   margin: auto;
   width: 80vw;
@@ -53,6 +78,24 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #6c5ce7;
+/*button:hover {*/
+/*  background-color: #6c5ce7;*/
+/*}*/
+
+input,
+select {
+  border-bottom: 1px solid grey;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  text-align: right;
+}
+
+input:focus,
+select:focus {
+  background: #55efc4;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
 }
