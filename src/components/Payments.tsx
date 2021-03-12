@@ -1,30 +1,29 @@
-import { useState } from 'react';
-import { checkDateIsAfter, getFirstDay, getLastDay } from '../helpers/utils';
+import React, { useState } from "react";
+import { checkDateIsAfter, getFirstDay, getLastDay } from "../helpers/utils";
 
 const Payments = ({ onChange, onClickAdd, onClickDelete, paymentsArr }) => {
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleChange = (
     e: React.FormEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
   ) => {
     const { name, id, value } = e.currentTarget;
-    const indexValue = id.split(' ')[1];
+    const indexValue = id.split(" ")[1];
 
-    setError('');
+    setError("");
 
     let updatedValue: string | number;
 
-    if (name === 'startDate') {
+    if (name === "startDate") {
       updatedValue = getFirstDay(value);
-    } else if (name === 'endDate') {
+    } else if (name === "endDate") {
       updatedValue = getLastDay(value);
 
       if (!checkDateIsAfter(paymentsArr[indexValue].startDate, updatedValue)) {
-        setError('End date must be after start date');
-        updatedValue = '';
+        setError("End date must be after start date");
         return;
       }
-    } else if (name === 'amount') {
+    } else if (name === "amount") {
       updatedValue = Number(value);
     } else {
       updatedValue = value;
@@ -39,7 +38,7 @@ const Payments = ({ onChange, onClickAdd, onClickDelete, paymentsArr }) => {
 
     const updatedPayment = {
       ...oldPayment,
-      [name]: updatedValue
+      [name]: updatedValue,
     };
 
     const oldArray = [...paymentsArr];
@@ -56,7 +55,7 @@ const Payments = ({ onChange, onClickAdd, onClickDelete, paymentsArr }) => {
         <button onClick={onClickDelete}>Delete Payment</button>
       </div>
       {/* TODO create error component */}
-      {error !== '' ? <p>{error}</p> : null}
+      {error !== "" ? <p>{error}</p> : null}
       <table>
         <thead>
           <tr>

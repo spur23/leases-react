@@ -1,4 +1,5 @@
-import { InputTypes } from '../../pages/CreateLease';
+import { InputTypes } from "../../pages/CreateLease";
+import React from "react";
 
 interface ConfigObject {
   label: string;
@@ -30,7 +31,7 @@ const Input = (props: InputProps) => {
     onChange,
     options,
     show,
-    required
+    required,
   } = props.config;
 
   if (show === undefined || show) {
