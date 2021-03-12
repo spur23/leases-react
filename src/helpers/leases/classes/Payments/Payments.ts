@@ -1,7 +1,7 @@
 import { PaymentStream } from '../../interfaces';
 import { monthlyCalculation } from '../../utils';
 import { Payment } from './Payment';
-import { PaymentInformation } from '../../interfaces/PaymentInformation';
+import { PaymentInformation } from '../../interfaces';
 
 export class Payments {
   payments: Payment[];
