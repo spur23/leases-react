@@ -3,7 +3,7 @@ export interface LiabilitySchedule {
   beginningBalance: number;
   payment: number;
   interestExpense: number;
-  principal: number;
+  principal?: number;
   endingBalance: number;
   shortTermBalance: number;
   longTermBalance: number;
