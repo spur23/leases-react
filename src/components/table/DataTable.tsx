@@ -1,5 +1,5 @@
-import { capitalizeFirstLetter } from '../../helpers/utils';
-import { DataTableStyled, DataTableBodyStyled } from './DataTableStyles';
+import { capitalizeFirstLetter } from "../../helpers/utils";
+import { StyledDataTable } from "./StyledDataTable";
 
 interface Config {
   data: {}[];
@@ -11,15 +11,15 @@ interface Config {
  * @returns
  */
 const createTableRows = (dataArray: {}[]) => (
-  <DataTableBodyStyled>
+  <StyledDataTable>
     {dataArray.map((row, index) => (
       <tr key={`${row}-${index}`}>
         {Object.keys(row).map((key) => {
-          if (typeof row[key] === 'number') {
+          if (typeof row[key] === "number") {
             return (
               <td key={key}>
-                {new Intl.NumberFormat('en-US', {
-                  minimumFractionDigits: 2
+                {new Intl.NumberFormat("en-US", {
+                  minimumFractionDigits: 2,
                 }).format(row[key])}
               </td>
             );
@@ -28,7 +28,7 @@ const createTableRows = (dataArray: {}[]) => (
         })}
       </tr>
     ))}
-  </DataTableBodyStyled>
+  </StyledDataTable>
 );
 
 /**
@@ -42,9 +42,9 @@ const createTableHeaders = (dataArray: {}[]) => {
   headers
     .map((header) => header.split(/(?=[A-Z])/))
     .forEach((el) => {
-      let combinedText = '';
+      let combinedText = "";
       for (let i = 0; i < el.length; i++) {
-        combinedText = combinedText + ' ' + capitalizeFirstLetter(el[i]);
+        combinedText = combinedText + " " + capitalizeFirstLetter(el[i]);
       }
       result.push(combinedText);
     });
@@ -73,10 +73,10 @@ const DataTable = (props: Config) => {
   const tableHeader = createTableHeaders(data);
 
   return (
-    <DataTableStyled>
+    <StyledDataTable>
       {tableHeader}
       {tableRows}
-    </DataTableStyled>
+    </StyledDataTable>
   );
 };
 
