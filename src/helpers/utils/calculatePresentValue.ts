@@ -1,4 +1,4 @@
-import { discountRate } from './index';
+import { discountRate } from "./index";
 
 export const calculatePresentValue = (
   payments,
@@ -17,9 +17,10 @@ export const calculatePresentValue = (
 /**
  * Generates the reducer function for PV calculation
  * @param interestRate
+ * @param prepaid
  * @returns
  */
-const calcPresentValue = (interestRate: number, prepaid: boolean) => {
+export const calcPresentValue = (interestRate: number, prepaid: boolean) => {
   return (
     accumulator: number,
     currentValue: { payment: number; frequency: string },
