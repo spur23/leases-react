@@ -4,7 +4,7 @@ const StyledCreateLease = styled.div`
   font-family: inherit;
   display: flex;
   flex-direction: column;
-  margin: auto;
+  margin: 2.5rem auto auto;
   width: 50%;
 
   h3 {
@@ -12,6 +12,32 @@ const StyledCreateLease = styled.div`
     background-size: 100% 100%;
     color: black;
     padding-bottom: 1rem;
+  }
+
+  .create-lease-container {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: auto;
+  }
+
+  .schedule-container {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+
+  .schedule-container > div {
+    width: min-content;
+    margin: 0 auto auto 2rem;
+  }
+
+  .schedule-container > div > h3 {
+    text-align: center;
+  }
+
+  span {
+    align-self: center;
   }
 
   .input-container {
@@ -77,13 +103,17 @@ const StyledCreateLease = styled.div`
     font-size: 18px;
   }
 
+  .payments-container > table > tbody > tr > td > input {
+    margin-left: 0.25rem;
+  }
+
   button:hover {
     background-color: #74b9ff;
   }
 
   @media (min-width: 40rem) {
     margin: 2.5rem auto auto;
-    width: 40rem;
+    width: 50%;
   }
 `;
 

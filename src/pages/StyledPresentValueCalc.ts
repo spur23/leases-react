@@ -4,7 +4,7 @@ const StyledPresentValueCalc = styled.div`
   font-family: inherit;
   display: flex;
   flex-direction: column;
-  margin: auto;
+  margin: 2.5rem auto auto;
   width: 50%;
 
   button {
@@ -64,7 +64,11 @@ const StyledPresentValueCalc = styled.div`
   .payments-container > table > tbody > tr > td > input,
   .payments-container > table > tbody > tr > td > select {
     width: 8rem;
-    padding: 0;
+    padding: 2px 2px;
+  }
+
+  .payments-container > table > tbody > tr > td > select {
+    padding-bottom: 1px;
   }
 
   .payments-container > div,
@@ -79,6 +83,7 @@ const StyledPresentValueCalc = styled.div`
     background-color: #3498db;
     width: 8.5rem;
   }
+
   .payments-container > div > button:hover,
   .form-submit:hover {
     background-color: #74b9ff;
