@@ -1,12 +1,12 @@
-import { PaymentFrequency } from '../../enums';
-import { PaymentValues } from '../../interfaces';
+import { PaymentFrequency } from "../../enums";
+import { PaymentValues } from "../../interfaces";
 // payment class
 export class Payment {
-  private payment: number;
-  private frequency: PaymentFrequency;
+  private readonly payment: number;
+  private readonly frequency: PaymentFrequency;
   private startDate: Date;
   private endDate: Date;
-  private payments: number;
+  private readonly payments: number;
 
   constructor(config: PaymentValues) {
     const { payment, frequency, startDate, endDate } = config;
@@ -34,7 +34,7 @@ export class Payment {
       frequency: this.frequency,
       startDate: this.startDate.toLocaleDateString(),
       endDate: this.endDate.toLocaleDateString(),
-      payments: this.payments
+      payments: this.payments,
     };
   }
 
