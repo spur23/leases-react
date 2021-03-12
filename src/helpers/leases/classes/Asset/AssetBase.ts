@@ -1,6 +1,6 @@
-import { AssetSchedulePrint } from '../../interfaces';
-import { roundNumber } from '../../utils';
-import { AssetMonthly } from './AssetMonthly';
+import { AssetSchedulePrint } from "../../interfaces";
+import { roundNumber } from "../../utils";
+import { AssetMonthly } from "./AssetMonthly";
 
 export class AssetBase {
   startDate!: Date;
@@ -15,13 +15,13 @@ export class AssetBase {
     this.life = life;
   }
 
-  setPropertiesFromJSON(schedule: any) {
-    const { date, beginningBalance } = schedule[0];
-    const life = schedule.length;
-    this.setProperties(date, beginningBalance, life);
-
-    this.setMonthlyTransactionsFromJSON(schedule);
-  }
+  // setPropertiesFromJSON(schedule: any) {
+  //   const { date, beginningBalance } = schedule[0];
+  //   const life = schedule.length;
+  //   this.setProperties(date, beginningBalance, life);
+  //
+  //   this.setMonthlyTransactionsFromJSON(schedule);
+  // }
 
   getStartingBalance(): number {
     return this.startingBalance;
@@ -36,12 +36,12 @@ export class AssetBase {
   }
 
   getAssetData(): AssetSchedulePrint[] {
-    const schedule = this.monthlyTransactions.map((month) => {
+    return this.monthlyTransactions.map((month) => {
       const {
         date,
         beginningBalance,
         depreciation,
-        endingBalance
+        endingBalance,
       } = month.getMonthlyData();
 
       // check if the ending balance is less than 1
@@ -52,19 +52,17 @@ export class AssetBase {
           date: date.toLocaleDateString(),
           beginningBalance,
           depreciation: roundNumber(endingBalance + depreciation, 2),
-          endingBalance: endingBalance - endingBalance
+          endingBalance: endingBalance - endingBalance,
         };
       } else {
         return {
           date: date.toLocaleDateString(),
           beginningBalance,
           depreciation,
-          endingBalance
+          endingBalance,
         };
       }
     });
-
-    return schedule;
   }
 
   setMonthlyDepreciation(depreciation: number): void {
@@ -80,14 +78,14 @@ export class AssetBase {
     );
   }
 
-  setMonthlyTransactionsFromJSON(data: any): void {
-    this.monthlyTransactions = data.map(
-      (month) =>
-        new AssetMonthly(
-          new Date(month.date),
-          month.beginningBalance,
-          month.depreciation
-        )
-    );
-  }
+  // setMonthlyTransactionsFromJSON(data: any): void {
+  //   this.monthlyTransactions = data.map(
+  //     (month) =>
+  //       new AssetMonthly(
+  //         new Date(month.date),
+  //         month.beginningBalance,
+  //         month.depreciation
+  //       )
+  //   );
+  // }
 }
