@@ -14,7 +14,7 @@ const leaseInitialValues = {
   interestRate: 0,
 };
 
-const PresentValueCalculatorPage = (props: RouteComponentProps) => {
+const PresentValueCalculatorPage = (_props: RouteComponentProps) => {
   const [presentValue, setPresentValue] = useState(0);
   const [error, setError] = useState("");
   const [values, handleChange] = useForm(leaseInitialValues);

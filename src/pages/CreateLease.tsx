@@ -1,52 +1,52 @@
-import { useState, useEffect } from 'react';
-import Payments from '../components/Payments';
-import Download from '../components/Download';
+import { useState, useEffect } from "react";
+import Payments from "../components/Payments";
+import Download from "../components/Download";
 
-import { createExcelData, createLease } from '../helpers/utils';
-import { GeneratedLease } from '../interfaces';
-import { useForm } from '../hooks/useForm';
-import Input from '../components/input/Input';
-import DataTable from '../components/table/DataTable';
-import { FormStyled } from '../StyledForm';
+import { createExcelData, createLease } from "../helpers/utils";
+import { GeneratedLease } from "../interfaces";
+import { useForm } from "../hooks/useForm";
+import Input from "../components/input/Input";
+import DataTable from "../components/table/DataTable";
+import { FormStyled } from "../StyledForm";
 
-import './CreateLease.css';
-import { RouteComponentProps } from '@reach/router';
-import { usePayments } from '../hooks/usePayments';
+import "./CreateLease.css";
+import { RouteComponentProps } from "@reach/router";
+import { usePayments } from "../hooks/usePayments";
 
 export enum InputTypes {
-  Select = 'select',
-  Text = 'text',
-  Number = 'number'
+  Select = "select",
+  Text = "text",
+  Number = "number",
 }
 
 const leaseInitialValues = {
-  name: '',
-  description: '',
-  classification: 'operating',
-  prepaid: 'true',
+  name: "",
+  description: "",
+  classification: "operating",
+  prepaid: "true",
   interestRate: 0,
   deferredRent: 0,
   leaseIncentive: 0,
   initialDirectCosts: 0,
-  useEconomicLife: 'false',
-  economicLife: 0
+  useEconomicLife: "false",
+  economicLife: 0,
 };
 
-const CreateLeasePage = (props: RouteComponentProps) => {
+const CreateLeasePage = (_props: RouteComponentProps) => {
   const [generatedLease, setGeneratedLease] = useState<GeneratedLease>({
-    lease: '',
-    description: '',
-    classification: '',
+    lease: "",
+    description: "",
+    classification: "",
     interestRate: 0,
     totalPayments: 0,
     quantityOfPayments: 0,
     presentValue: 0,
     prepaid: true,
-    startDate: '',
-    endDate: '',
+    startDate: "",
+    endDate: "",
     payments: [],
     asset: [],
-    liability: []
+    liability: [],
   });
   const [leaseInfo, setLeaseInfo] = useState([]);
 
@@ -56,11 +56,11 @@ const CreateLeasePage = (props: RouteComponentProps) => {
     payments,
     onChangePayments,
     onClickAddPayment,
-    onClickDeletePayment
+    onClickDeletePayment,
   ] = usePayments();
 
   useEffect(() => {
-    if (generatedLease.lease === '') return;
+    if (generatedLease.lease === "") return;
     const leaseExcelData = createExcelData(generatedLease);
 
     setLeaseInfo(leaseExcelData);
@@ -78,107 +78,106 @@ const CreateLeasePage = (props: RouteComponentProps) => {
 
   const inputObject = [
     {
-      label: 'Name:',
+      label: "Name:",
       type: InputTypes.Text,
-      name: 'name',
-      id: 'name',
+      name: "name",
+      id: "name",
       value: values.name,
       onChange: handleChange,
-      required: true
+      required: true,
     },
     {
-      label: 'Description:',
+      label: "Description:",
       type: InputTypes.Text,
-      name: 'description',
-      id: 'description',
+      name: "description",
+      id: "description",
       value: values.description,
       onChange: handleChange,
-      required: true
+      required: true,
     },
     {
-      label: 'Classification:',
+      label: "Classification:",
       type: InputTypes.Select,
-      name: 'classification',
-      id: 'classification',
+      name: "classification",
+      id: "classification",
       value: values.classification,
       onChange: handleChange,
       options: [
-        { text: 'Operating', value: 'operating' },
-        { text: 'Finance', value: 'finance' }
-      ]
+        { text: "Operating", value: "operating" },
+        { text: "Finance", value: "finance" },
+      ],
     },
     {
-      label: 'Use Economic Life:',
+      label: "Use Economic Life:",
       type: InputTypes.Select,
-      name: 'useEconomicLife',
-      id: 'useEconomicLife',
+      name: "useEconomicLife",
+      id: "useEconomicLife",
       value: values.useEconomicLife,
       onChange: handleChange,
       options: [
-        { text: 'Yes', value: 'true' },
-        { text: 'No', value: 'false' }
+        { text: "Yes", value: "true" },
+        { text: "No", value: "false" },
       ],
-      show: values.classification === 'finance' ? true : false
+      show: values.classification === "finance",
     },
     {
-      label: 'Economic Life (years):',
+      label: "Economic Life (years):",
       type: InputTypes.Number,
-      name: 'economicLife',
-      id: 'economicLife',
+      name: "economicLife",
+      id: "economicLife",
       value: values.economicLife,
       onChange: handleChange,
       show:
-        values.useEconomicLife === 'true' && values.classification === 'finance'
-          ? true
-          : false
+        values.useEconomicLife === "true" &&
+        values.classification === "finance",
     },
     {
-      label: 'Prepaid:',
+      label: "Prepaid:",
       type: InputTypes.Select,
-      name: 'prepaid',
-      id: 'prepaid',
+      name: "prepaid",
+      id: "prepaid",
       value: values.prepaid,
       onChange: handleChange,
       options: [
-        { text: 'Yes', value: 'true' },
-        { text: 'No', value: 'false' }
+        { text: "Yes", value: "true" },
+        { text: "No", value: "false" },
       ],
-      required: true
+      required: true,
     },
 
     {
-      label: 'Interest Rate:',
+      label: "Interest Rate:",
       type: InputTypes.Number,
-      name: 'interestRate',
-      id: 'interestRate',
+      name: "interestRate",
+      id: "interestRate",
       value: values.interestRate,
       onChange: handleChange,
-      required: true
+      required: true,
     },
     {
-      label: 'Deferred Rent:',
+      label: "Deferred Rent:",
       type: InputTypes.Number,
-      name: 'deferredRent',
-      id: 'deferredRent',
+      name: "deferredRent",
+      id: "deferredRent",
       value: values.deferredRent,
-      onChange: handleChange
+      onChange: handleChange,
     },
     {
-      label: 'Lease Incentive:',
+      label: "Lease Incentive:",
       type: InputTypes.Number,
-      name: 'leaseIncentive',
-      id: 'leaseIncentive',
+      name: "leaseIncentive",
+      id: "leaseIncentive",
       value: values.leaseIncentive,
-      onChange: handleChange
+      onChange: handleChange,
     },
     {
-      label: 'Initial Direct Costs:',
+      label: "Initial Direct Costs:",
       type: InputTypes.Number,
-      name: 'initialDirectCosts',
-      id: 'initialDirectCosts',
+      name: "initialDirectCosts",
+      id: "initialDirectCosts",
       value: values.initialDirectCosts,
-      onChange: handleChange
-    }
+      onChange: handleChange,
+    },
   ];
 
   return (
@@ -209,7 +208,7 @@ const CreateLeasePage = (props: RouteComponentProps) => {
         <div>
           {generatedLease.liability.length !== 0 ? (
             <>
-              <h3>Liabilty Schedule</h3>
+              <h3>Liability Schedule</h3>
               <DataTable data={generatedLease.liability} />
             </>
           ) : null}
