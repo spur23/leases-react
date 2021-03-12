@@ -1,7 +1,7 @@
-import { AssetMonthly } from './AssetMonthly';
-import { calculateAssetSchedule } from '../../utils/index';
-import { AssetBase } from './AssetBase';
-import { LeaseClassification } from '../../enums';
+import { AssetMonthly } from "./AssetMonthly";
+import { calculateAssetSchedule } from "../../utils/index";
+import { AssetBase } from "./AssetBase";
+import { LeaseClassification } from "../../enums";
 
 export class AssetFinance extends AssetBase {
   setPropertiesFinance(
@@ -47,11 +47,9 @@ export class AssetFinance extends AssetBase {
       life,
       startingBalance,
       monthlyDepreciation,
-      classification: LeaseClassification.FINANCE
+      classification: LeaseClassification.FINANCE,
     };
 
-    const assetSchedule = calculateAssetSchedule(assetData);
-
-    return assetSchedule;
+    return calculateAssetSchedule(assetData);
   }
 }
