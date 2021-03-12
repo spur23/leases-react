@@ -1,7 +1,7 @@
 import { RouteComponentProps } from "@reach/router";
 import Payments from "../components/Payments";
 import { usePayments } from "../hooks/usePayments";
-import { useState } from "react";
+import React, { useState } from "react";
 import { generatePaymentStream } from "../helpers/utils";
 import { InputTypes } from "./CreateLease";
 import { useForm } from "../hooks/useForm";
