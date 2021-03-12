@@ -1,7 +1,8 @@
-import { roundNumber } from '.';
-import { LiabilityMonthly } from '../classes/Liability/LiabilityMonthly';
-import { PaymentStream } from '../interfaces';
-import { discountRate } from '../../utils/discountRate';
+import { roundNumber } from ".";
+import { LiabilityMonthly } from "../classes/Liability/LiabilityMonthly";
+import { PaymentStream } from "../interfaces";
+import { discountRate } from "../../utils";
+
 /**
  *Calculates liability monthly schedule.
  */
@@ -63,7 +64,7 @@ const calculateLiability = (
         interestPayment
       );
 
-      const month = new LiabilityMonthly(
+      return new LiabilityMonthly(
         date,
         payment,
         roundNumber(startingBalance, 2),
@@ -72,8 +73,6 @@ const calculateLiability = (
         roundNumber(endingBalance, 2),
         prepaid
       );
-
-      return month;
     } else {
       const interestExpense = startingBalance * interestRate;
       const endingBalance = endBalance(
@@ -83,7 +82,7 @@ const calculateLiability = (
         interestPayment
       );
 
-      const month = new LiabilityMonthly(
+      return new LiabilityMonthly(
         date,
         payment,
         roundNumber(startingBalance, 2),
@@ -92,8 +91,6 @@ const calculateLiability = (
         roundNumber(endingBalance, 2),
         prepaid
       );
-
-      return month;
     }
   } else {
     // get prior month ending balance and interest expense for
@@ -125,7 +122,7 @@ const calculateLiability = (
         interestPayment
       );
 
-      const month = new LiabilityMonthly(
+      return new LiabilityMonthly(
         date,
         payment,
         roundNumber(endingBalance, 2),
@@ -134,8 +131,6 @@ const calculateLiability = (
         roundNumber(currentMonthEndingBalance, 2),
         prepaid
       );
-
-      return month;
     } else {
       const currentMonthInterestExpense = endingBalance * interestRate;
 
@@ -149,7 +144,7 @@ const calculateLiability = (
         principal -
         interestPayment;
 
-      const month = new LiabilityMonthly(
+      return new LiabilityMonthly(
         date,
         payment,
         roundNumber(endingBalance, 2),
@@ -158,8 +153,6 @@ const calculateLiability = (
         roundNumber(currentMonthEndingBalance, 2),
         prepaid
       );
-
-      return month;
     }
   }
 };
