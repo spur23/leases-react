@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/leases-react/static/css/main.faf7e4f7.chunk.css",
-    "main.js": "/leases-react/static/js/main.6863db11.chunk.js",
-    "main.js.map": "/leases-react/static/js/main.6863db11.chunk.js.map",
+    "main.css": "/leases-react/static/css/main.d7a8861d.chunk.css",
+    "main.js": "/leases-react/static/js/main.24cf28c4.chunk.js",
+    "main.js.map": "/leases-react/static/js/main.24cf28c4.chunk.js.map",
     "runtime-main.js": "/leases-react/static/js/runtime-main.a1d891bd.js",
     "runtime-main.js.map": "/leases-react/static/js/runtime-main.a1d891bd.js.map",
     "static/js/2.0914b204.chunk.js": "/leases-react/static/js/2.0914b204.chunk.js",
     "static/js/2.0914b204.chunk.js.map": "/leases-react/static/js/2.0914b204.chunk.js.map",
     "index.html": "/leases-react/index.html",
-    "static/css/main.faf7e4f7.chunk.css.map": "/leases-react/static/css/main.faf7e4f7.chunk.css.map",
+    "static/css/main.d7a8861d.chunk.css.map": "/leases-react/static/css/main.d7a8861d.chunk.css.map",
     "static/js/2.0914b204.chunk.js.LICENSE.txt": "/leases-react/static/js/2.0914b204.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.a1d891bd.js",
     "static/js/2.0914b204.chunk.js",
-    "static/css/main.faf7e4f7.chunk.css",
-    "static/js/main.6863db11.chunk.js"
+    "static/css/main.d7a8861d.chunk.css",
+    "static/js/main.24cf28c4.chunk.js"
   ]
 }
