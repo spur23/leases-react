@@ -1,5 +1,5 @@
-import { Link } from '@reach/router';
-import StyledNavbar from './StyledNavbar';
+import { Link } from "@reach/router";
+import StyledNavbar from "./StyledNavbar";
 
 const Navbar = () => {
   return (
@@ -7,6 +7,21 @@ const Navbar = () => {
       <ul>
         <li>
           <Link to="/leases-react/">Home</Link>
+        </li>
+        <li>
+          <Link to="/leases-react/finance-criteria">
+            Finance Lease Criteria
+          </Link>
+        </li>
+        <li>
+          <Link to="/leases-react/initial-recognition">
+            Initial Recognition
+          </Link>
+        </li>
+        <li>
+          <Link to="/leases-react/subsequent-recognition">
+            Subsequent Recognition
+          </Link>
         </li>
         <li>
           <Link to="/leases-react/create-lease">Create Lease</Link>
