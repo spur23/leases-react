@@ -37,11 +37,14 @@ select::-ms-expand {
 .page-container {
   margin: auto;
   width: 80vw;
+  max-width: 1500px;
 }
 
 .App {
   display: flex;
   flex-direction: column;
+  max-width: 1500px;
+  margin: auto;
 }
 
 span {

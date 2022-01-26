@@ -53,7 +53,7 @@ const createTableHeaders = (dataArray: {}[]) => {
     <thead>
       <tr>
         {result.map((word, index) => (
-          <th key={`${word}-${index}`}>{word}</th>
+          <th key={`${word}-${index}`} style={{height: '40px'}}>{word}</th>
         ))}
       </tr>
     </thead>

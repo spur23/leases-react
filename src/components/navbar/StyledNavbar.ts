@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const StyledNavbar = styled.div`
   background-color: #3c6382;
   width: 80vw;
+  max-width: 1500px;
   margin: auto;
 
   ul {
